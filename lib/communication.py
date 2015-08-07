@@ -37,7 +37,14 @@ elif len(dut)==3:
 
 test=Basetest
 
-test.initialize(deviceid1,dut1)
+option=input('choose the test cases option\n 1: initialization\n 2. advertising\n 3 scan and connect\n')
+
+if option==1:
+	test.initialize(deviceid1,dut1)
+elif option==2:
+	instance=input('which instance you want the DUT to advertise')
+	test.advertising(deviceid1,instance=1,UUID.UUID0,Advertisermode.lowlatency,Advertiserpower.highpower,Connectable.connectable,timeout=0,dut1)
+
 
 
 
