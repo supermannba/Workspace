@@ -8,6 +8,7 @@ from enum import Enum
 class Filename(Enum):
 	commandfile='NotifyDUT.txt'
 	resultfile='NotifyBM3.txt'
+	objectpath=r'/data'
 
 
 '''advertising introduction'''
