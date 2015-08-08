@@ -30,6 +30,7 @@ def readresult(device,objectpath,filename,command):
 			t=subprocess.check_output(["adb","-s",device,"shell","cat",resultfile],shell=True)
 			t1=str(t)
 			if command in t1:
+				s=subprocess.call(["adb","-s",device,"shell","rm",resultfile],shell=True)
 				if 'PASS' in t1:
 					print(command+' PASS')
 				else:

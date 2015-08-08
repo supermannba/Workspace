@@ -1,6 +1,6 @@
 #!/usr/bin env python 3.4
 
-import os
+import os,time
 import adbmodule
 import loggingv1
 import androiddevicebt

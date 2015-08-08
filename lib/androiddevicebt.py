@@ -44,7 +44,7 @@ class Androiddevicebt(devicebt):
 		sendcommand.sendcommand(command,commandfile)
 		adbmodule.adbpush(deviceid,commandfile,objectpath)
 		sendcommand.readresult(deviceid,objectpath,resultfile,command)
-		time.sleep(5)
+		time.sleep(1)
 
 	'''initialization'''
 	def turnonBT(self,deviceid):

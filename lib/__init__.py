@@ -11,7 +11,7 @@ from Basetest import Basetest
 #devicelist=adbmodule.initialization()
 dut=adbmodule.initializedut()
 test=Basetest
-time.sleep(5)
+time.sleep(1)
 
 for i in range(len(dut)):
 	test.initialize(dut[i].deviceid,dut[i])
