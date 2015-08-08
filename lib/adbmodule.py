@@ -1,7 +1,7 @@
  #!/usr/bin env python 3.4
 
 import subprocess
-import re
+import os,re
 import enums
 from androiddevicebt import Androiddevicebt
 import androiddevicebt
@@ -88,6 +88,16 @@ def initialization():
 		installapk(device,enums.apkinstall.apkname.value,enums.apkinstall.apkpath.value)
 		subprocess.call(["adb","-s",device,"shell","am","start","-n",enums.apkinstall.apkintent.value])
 	return devicelist
+
+def creatlogfile(device):
+	name=device+' logcat'+'.txt'
+	try:
+		file1=open(name,'r+')
+		file1.close()
+		return name
+	except:
+		print('could not generate log file')
+		sys.exit(0)
 
 def initializedut():
 	devicelist=adbdevice()

@@ -12,9 +12,10 @@ from Basetest import Basetest
 dut=adbmodule.initializedut()
 test=Basetest
 time.sleep(1)
-
+logname=[]
 for i in range(len(dut)):
 	test.initialize(dut[i].deviceid,dut[i])
+	logname.append(creatlogfile(dut[i].deviceid))
 
 
 

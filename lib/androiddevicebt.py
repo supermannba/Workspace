@@ -26,6 +26,7 @@ class Androiddevicebt(devicebt):
 	dut='DUT'
 	BT='BT'
 	BLE='BLE'
+	ble-'ble'
 	client='client'
 	server='leserver'
 	peripheral='peripheral'
@@ -40,10 +41,26 @@ class Androiddevicebt(devicebt):
 		self.commandfile=commandfile
 		self.objectpath=objectpath
 
-	def executing(self,deviceid,command):
+	def writetolog(self,deviceid,command,filename,result):
+		try:
+			with open(filename,'w') as f:
+				f.write('Executing '+deviceid+' '+command)
+				f.write(result)
+				f.close()
+		except:
+			print('could not write to the log file')
+
+	def executing(self,deviceid,command,filename):
 		sendcommand.sendcommand(command,commandfile)
 		adbmodule.adbpush(deviceid,commandfile,objectpath)
-		sendcommand.readresult(deviceid,objectpath,resultfile,command)
+		t=sendcommand.readresult(deviceid,objectpath,resultfile,command)
+		if t:
+			result=command+' : '+'PASS'
+			print(result)
+		else:
+			result=command+' : '+'FAIL'
+			print(result)
+		writetolog(deviceid,command,filename,result)
 		time.sleep(1)
 
 	'''initialization'''
@@ -64,28 +81,45 @@ class Androiddevicebt(devicebt):
 		command=' '.join([dut,BT,command1,enable])
 		self.executing(deviceid,command)
 
+	'''setname'''
+	def setname(self,deviceid,name):
+		command1='setname'
+		command=' '.join([dut,BT,command1,name])
+		self.executing(deviceid,command)
+
 	'''leclient command'''
-	def lescan(self,serial,deviceaddr,deviceid):
+	def lescan(self,serial,ble,deviceaddr,deviceid):
 		command1='startscan'
-		command=' '.join([dut,str(serial),client,command1,deviceaddr])
+		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
 		self.executing(deviceid,command)
 
 	def connect(self,serial,deviceaddr,deviceid):
 		command1='connect'
-		command=' '.join([dut,str(serial),client,command1,deviceaddr])
+		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
 		self.executing(deviceid,command)
 
 	def discoverservices(self,serial,deviceaddr,deviceid):
 		command1='discoverservices'
-		command=' '.join([dut,str(serial),client,command1,deviceaddr])
+		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
 		self.executing(deviceid,command)
 
 	def writedescriptor(self,serial,deviceaddr,deviceid,UUID16bit,Characteristic,Descriptor,operation1,writedata):
 		command1='writedescriptor'
-		command=' '.join([dut,str(serial),client,command1,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata])
+		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata])
 		self.executing(deviceid,command)
 
 	'''leserver command'''
+
+	def configurenewservicewithdatalength(self,serial,ble,deviceid,datalength):
+		command1='configurenewservicewithdatalength'
+		command=' '.join([dut,str(serial),ble,server,command1,str(datalength)])
+		self.executing(deviceid,command)
+
+	'''timevalue in ms'''
+	def setnotificationinterval(self,serial,deviceid,timevalue):
+		command1='setnotificationinterval'
+		command=' '.join([dut,str(serial),server,command1,str(timevalue)])
+
 	def startbuildadvertiser(self,instance,deviceid):
 		command1='startbuildadvertiser'
 		command=' '.join([dut,BLE,peripheral,command1,instance])
