@@ -8,6 +8,7 @@ import logging
 import loggingv1
 import time
 from Basetest import Basetest
+import enums
 
 logger=loggingv1.logging1(0)
 
@@ -43,7 +44,7 @@ if option==1:
 	test.initialize(deviceid1,dut1)
 elif option==2:
 	instance=input('which instance you want the DUT to advertise')
-	test.advertising(deviceid1,instance=1,UUID.UUID0,Advertisermode.lowlatency,Advertiserpower.highpower,Connectable.connectable,timeout=0,dut1)
+	test.advertising(deviceid1,instance=1,UUID.UUID0,enums.Advertisermode.lowlatency.value,enums.Advertiserpower.highpower.value,enums.Connectable.connectable.value,timeout=0,dut1)
 
 
 

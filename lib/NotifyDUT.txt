@@ -1,1 +1,1 @@
-DUT enableLE
+DUT enableBT

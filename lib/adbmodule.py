@@ -2,6 +2,9 @@
 
 import subprocess
 import re
+import enums
+from androiddevicebt import Androiddevicebt
+import androiddevicebt
 
 from subprocess import Popen,PIPE,STDOUT,check_output, CalledProcessError
 
@@ -54,7 +57,42 @@ def adbpush(device,filename,objectpath):
 
 
 def adbpull(device,filename,originpath):
+	path=originpath+filename
 	try:
-		t=subprocess.call(["adb","-s",device,"pull",filename,originpath],shell=True)
+		t=subprocess.call(["adb","-s",device,"pull",path],shell=True)
 	except CalledProcessError as e:
 		t=e.rturncode,e.meesage
+
+def installapk(device,apkname,apkpath):
+	path=apkpath+apkname
+	try:
+		t=subprocess.call(["adb","-s",device,"install",path],shell=True)
+	except CalledProcessError as e:
+		t=e.rturncode,e.meesage
+
+def adbremove(device,apkname,apkpath):
+	path=apkpath+apkname
+	try:
+		t=subprocess.call(["adb","-s",device,"shell","rm",path],shell=True)
+	except CalledProcessError as e:
+		t=e.rturncode,e.meesage
+
+
+def initialization():
+	adbwaitfordevice()
+	devicelist=adbdevice()
+	for device in devicelist:
+		adbroot(device)
+		adbremount(device)
+		adbremove(device,enums.Filename.resultfile.value,enums.Filename.objectpath.value)
+		installapk(device,enums.apkinstall.apkname.value,enums.apkinstall.apkpath.value)
+		subprocess.call(["adb","-s",device,"shell","am","start","-n",enums.apkinstall.apkintent.value])
+	return devicelist
+
+def initializedut():
+	devicelist=adbdevice()
+	dut=[]
+	for device in devicelist:
+		dut.append(Androiddevicebt(deviceid=device,bt=True,btle=True,commandfile=androiddevicebt.commandfile,objectpath=androiddevicebt.objectpath))
+	return dut
+

@@ -8,8 +8,12 @@ from enum import Enum
 class Filename(Enum):
 	commandfile='NotifyDUT.txt'
 	resultfile='NotifyBM3.txt'
-	objectpath=r'/data'
+	objectpath='/data/'
 
+class apkinstall(Enum):
+	apkpath='C:\\CST_QSPR\\qualcomm_bin\\Android\\Default\\'
+	apkname='ConnectivitySystemTest.apk'
+	apkintent='com.android.CST/.ConnectivitySystemTest.ConnectivitySystemTest'
 
 '''advertising introduction'''
 class Advertiserpower(Enum):

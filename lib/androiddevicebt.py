@@ -17,10 +17,11 @@ class Androiddevicebt(devicebt):
 	global objectpath
 	global commandfile
 	global resultfile
-	#global objectpath
+	#
 	commandfile='NotifyDUT.txt'
 	resultfile='NotifyBM3.txt'
-	objectpath=r'/data'
+	objectpath='/data/'
+	
 
 	dut='DUT'
 	BT='BT'
@@ -42,8 +43,8 @@ class Androiddevicebt(devicebt):
 	def executing(self,deviceid,command):
 		sendcommand.sendcommand(command,commandfile)
 		adbmodule.adbpush(deviceid,commandfile,objectpath)
-		sendcommand.readresult(deviceid,objectpath,resultfile)
-		time.sleep(1)
+		sendcommand.readresult(deviceid,objectpath,resultfile,command)
+		time.sleep(5)
 
 	'''initialization'''
 	def turnonBT(self,deviceid):

@@ -8,7 +8,7 @@ filename2='NotifyBM3.txt'
 command1='adb push '
 command3='adb pull '
 command2='adb root'
-path1=r'/data/'
+path1='/data/'
 
 
 with open(filename1,'w') as f:
