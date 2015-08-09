@@ -49,13 +49,17 @@ class UUID16bit(Enum):
 class Characteristic(Enum):
 	CID0='1100'
 
+class Descriptor(Enum):
+	DES0='2902'
+
+
 class readwriteoperation(Enum):
 	operationwrite='00'
 
 class writedata(Enum):
 	data00='00'
-	data01='01'
-	data02='02'
+	notification='01'
+	indication='02'
 	
 class stringpattern(Enum):
 	string11='beginning of system'

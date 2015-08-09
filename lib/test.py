@@ -26,6 +26,8 @@ class Basetest(object):
 		dut1.lescan(serial,deviceaddr,deviceid)
 		dut1.connect(serial,deviceaddr,deviceid)
 
+	def writedescriptor(deviceid,serial,)
+
 	
 
 
