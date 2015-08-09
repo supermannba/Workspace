@@ -1,1 +1,1 @@
-DUT enableLE
+DUT 1 ble leclient scanfordevicename cstadv

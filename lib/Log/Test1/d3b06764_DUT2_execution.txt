@@ -142,3 +142,63 @@ Executing d3b06764 DUT enableBT
 d3b06764 DUT enableBT : PASS
 Executing d3b06764 DUT enableLE
 d3b06764 DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Test1 Started Execution
+Test1 Started Execution
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS

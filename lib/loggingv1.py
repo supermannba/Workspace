@@ -35,7 +35,8 @@ def thread2(args1,stop_event):
 		stop_evetn.wait(time)
 
 def cleanlogcat(deviceid):
-	cmd="adb shell logcat -c"
+	string=["adb","-s",deviceid,"shell","logcat","-c"]
+	command=' '.join(string)	
 	try: 
 		process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
 	except Exception as e:

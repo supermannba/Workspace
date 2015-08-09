@@ -70,7 +70,11 @@ class Androiddevicebt(devicebt):
 			sys.exit(0)
 
 	def logname(self):
-		name=self.deviceid+'_DUT'+str(self.sequence)+'_execution''.txt'
+		name=self.deviceid+'_DUT'+str(self.sequence)+'_execution'+'.txt'
+		return name
+
+	def logcatname(self):
+		name=self.deviceid+'_DUT'+str(self.sequence)+'_logcat'+'.txt'
 		return name
 
 	def writetolog(self,command,filename,result):
@@ -93,10 +97,7 @@ class Androiddevicebt(devicebt):
 			result=self.deviceid+' '+command+' : '+'FAIL'
 			print(result)
 		self.writetolog(command,filename,result)
-		if t[1] is not '1':
-			self.advaddr=t[1]
-		else:
-			
+		self.advaddr=t[1]
 		time.sleep(1)
 
 	'''initialization'''
@@ -130,9 +131,8 @@ class Androiddevicebt(devicebt):
 	def scanforname(self,serial,name):
 		command1='scanfordevicename'
 		command=' '.join([dut,str(serial),ble,client,command1,name])
-		t=self.executing(command,self.logfile)
-		if t is not '':
-			self.advaddr=t
+		self.executing(command,self.logfile)
+		
 			
 
 	def lescan(self,serial,ble,deviceaddr):

@@ -37,9 +37,7 @@ def readresult(device,objectpath,filename,command):
 					if enums.stringpattern.string14.value in t1:
 						advaddr=getbtaddr(t1)
 						print("address found")
-					else:
-						print('PASS')
-						return True,advaddr
+					return True,advaddr
 				else:
 					return False,advaddr
 					break
