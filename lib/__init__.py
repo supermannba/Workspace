@@ -12,7 +12,7 @@ from Basetest import Basetest
 #devicelist=adbmodule.initialization()
 dut=adbmodule.initializedut()
 test=Basetest
-time.sleep(1)
+time.sleep(5)
 logname=[]
 testname='Test1'
 advname='cstadv'
@@ -25,9 +25,12 @@ for i in range(len(dut)):
 	test.initialize(dut[i])
 
 
-#test.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency,advpower=enums.Advertisingpower.highpower,connectable=enums.Connectable.connectable,timeout=0,name=advname,dut1=dut[0])
+#test.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,dut1=dut[0])
 
-#print(sendcommand.advaddr)
+#dut[1].scanforname(serial=1,name=advname)
+
+
+
 	
 
 

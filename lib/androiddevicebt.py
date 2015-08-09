@@ -14,6 +14,15 @@ import adbmodule,time
 class Androiddevicebt(devicebt):
 
 	global dut
+	global BT
+	global BLE
+	global ble
+	global client
+	global server
+	global peripheral
+	global central
+	global enable
+	global serviceuuid
 	global objectpath
 	global commandfile
 	global resultfile
@@ -28,13 +37,15 @@ class Androiddevicebt(devicebt):
 
 	dut='DUT'
 	BT='BT'
-	bt1='bt'
+	#bt='bt'
 	BLE='BLE'
 	ble='ble'
-	client='client'
+	client='leclient'
 	server='leserver'
 	peripheral='peripheral'
 	central='central'
+	enable=1
+	serviceuuid='serviceuuid'
 
 	def __init__(self,deviceid,bt,btle,sequence,commandfile,objectpath):
 		devicebt.__init__(self,os='Android',bt=True,btle=True)
@@ -74,14 +85,18 @@ class Androiddevicebt(devicebt):
 	def executing(self,command,filename):
 		sendcommand.sendcommand(command,commandfile)
 		adbmodule.adbpush(self.deviceid,commandfile,objectpath)
-		t=sendcommand.readresult(self.deviceid,objectpath,resultfile,command)
-		if t:
-			result=command+' : '+'PASS'
+		t=sendcommand.readresult(self.deviceid,self.objectpath,resultfile,command)
+		if t[0]:
+			result=self.deviceid+' '+command+' : '+'PASS'
 			print(result)
 		else:
-			result=command+' : '+'FAIL'
+			result=self.deviceid+' '+command+' : '+'FAIL'
 			print(result)
 		self.writetolog(command,filename,result)
+		if t[1] is not '1':
+			self.advaddr=t[1]
+		else:
+			
 		time.sleep(1)
 
 	'''initialization'''
@@ -108,10 +123,18 @@ class Androiddevicebt(devicebt):
 	'''setname'''
 	def setname(self,serial,name):
 		command1='setname'
-		command=' '.join([dut,str(serial),bt1,command1,name])
+		command=' '.join([dut,str(serial),BT,command1,name])
 		self.executing(command,self.logfile)
 
 	'''leclient command'''
+	def scanforname(self,serial,name):
+		command1='scanfordevicename'
+		command=' '.join([dut,str(serial),ble,client,command1,name])
+		t=self.executing(command,self.logfile)
+		if t is not '':
+			self.advaddr=t
+			
+
 	def lescan(self,serial,ble,deviceaddr):
 		command1='startscan'
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
@@ -130,7 +153,7 @@ class Androiddevicebt(devicebt):
 
 	def writedescriptor(self,serial,deviceaddr,deviceid,UUID16bit,Characteristic,Descriptor,operation1,writedata):
 		command1='writedescriptor'
-		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata])
+		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,str(UUID16bit),str(Characteristic),str(Descriptor),str(operation1),str(writedata)])
 		self.executing(command,self.logfile)
 
 	'''leserver command'''
@@ -148,32 +171,32 @@ class Androiddevicebt(devicebt):
 
 	'''advertising'''
 	def startbuildadvertiser(self,instance):
-		command1='startbuildadvertiser'
-		command=' '.join([dut,BLE,peripheral,command1,instance])
+		command1='startbuildingnewadv'
+		command=' '.join([dut,BLE,peripheral,command1,str(instance)])
 		self.executing(command,self.logfile)
 
 
 	def addadvdataUUID(self,UUID,instance):
 		command1="addadvdata"
-		command=' '.join([dut,BLE,peripheral,command1,UUID,instance])
+		command=' '.join([dut,BLE,peripheral,command1,str(instance),serviceuuid,UUID])
 		self.executing(command,self.logfile)
 
 
 	def setadvsetting(self,instance,advmode,advpower,connectable,timeout):
-		command1='setadvsetting'
-		command=' '.join([dut,BLE,peripheral,command1,instance,advmode,advpower,timeout,connectable])
+		command1='setadvsettings'
+		command=' '.join([dut,BLE,peripheral,command1,str(instance),str(advmode),str(advpower),str(timeout),connectable])
 		self.executing(command,self.logfile)
 
 
 	def buildadvertiser(self,instance):
-		command1='buildadvertiser'
-		command=' '.join([dut,BLE,peripheral,command1,instance])
+		command1='buildadv'
+		command=' '.join([dut,BLE,peripheral,command1,str(instance)])
 		self.executing(command,self.logfile)
 
 
 	def startadvertising(self,instance):
 		command1='startadv'
-		command=' '.join([dut,BLE,peripheral,command1,instance])
+		command=' '.join([dut,BLE,peripheral,command1,str(instance)])
 		self.executing(command,self.logfile)
 
 
@@ -184,7 +207,7 @@ class Androiddevicebt(devicebt):
 
 	def advertisingwithname(self,serial,instance,enable):
 		command1='includedevicename'
-		command=' '.join([dut,str(serial),ble,peripheral,'addadvdata',instance,command1,str(enable)])
+		command=' '.join([dut,str(serial),ble,peripheral,'addadvdata',str(instance),command1,str(enable)])
 		self.executing(command,self.logfile)
 		
 

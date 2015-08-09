@@ -7,7 +7,8 @@ global objectpath
 global commandfile
 import re,subprocess
 
-
+global advaddr
+advaddr='1'
 
 def sendcommand(command,filename):
 	f=open(filename,'w')
@@ -16,31 +17,35 @@ def sendcommand(command,filename):
 
 
 def getbtaddr(line):
-	line1=line
-	index1=line1.index(enums.stringpattern.string14)
-	index2=index1+len(enums.stringpattern.string14)
-	return line1[index2:index2+17]
+	index1=line.index(enums.stringpattern.string14.value)
+	index2=index1+len(enums.stringpattern.string14.value)
+	return line[index2:index2+17]
 
 
 def readresult(device,objectpath,filename,command):
 	resultfile=objectpath+filename
+	advaddr='1'
 	while True:
 		try:
 			t=subprocess.check_output(["adb","-s",device,"shell","cat",resultfile],shell=True)
 			t1=str(t)
-			print(t1)
+	
 			if command in t1:
+				
 				s=subprocess.call(["adb","-s",device,"shell","rm",resultfile],shell=True)
-				if 'PASS' in t1:
-					if enums.stringpattern.string14 in t1:
+				if 'PASS' in t1:	
+					if enums.stringpattern.string14.value in t1:
+						advaddr=getbtaddr(t1)
 						print("address found")
-					return True
+					else:
+						print('PASS')
+						return True,advaddr
 				else:
-					return False
-				break
+					return False,advaddr
+					break
 			else:
-				time.sleep(4)
+				time.sleep(1)
 
 		except Exception as e:
 			return False
-			print(e)
+			print(e) 

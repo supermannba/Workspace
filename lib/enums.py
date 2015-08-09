@@ -11,7 +11,7 @@ class Filename(Enum):
 	objectpath='/data/'
 
 class apkinstall(Enum):
-	apkpath='C:\\CST_QSPR\\qualcomm_bin\\Android\\Default\\'
+	apkpath='C:\\CST_QSPR\\qualcomm_bin\\Android\\MRelease\\'
 	apkname='ConnectivitySystemTest.apk'
 	apkintent='com.android.CST/.ConnectivitySystemTest.ConnectivitySystemTest'
 

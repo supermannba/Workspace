@@ -18,3 +18,127 @@ Executing d3b06764 DUT enableBT
 DUT enableBT : FAIL
 Executing d3b06764 DUT enableLE
 DUT enableLE : FAIL
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : FAIL
+Executing d3b06764 DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : FAIL
+Executing d3b06764 DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : FAIL
+Executing d3b06764 DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : FAIL
+Executing d3b06764 DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : FAIL
+Executing d3b06764 DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Test1 Started Execution
+Test1 Started Execution
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+DUT enableLE : PASS
+Executing d3b06764 DUT 1 ble client scanfordevicename cstadv
+DUT 1 ble client scanfordevicename cstadv : FAIL
+Test1 Started Execution
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+DUT 1 ble leclient scanfordevicename cstadv : FAIL
+Test1 Started Execution
+Test1 Started Execution
+Test1 Started Execution
+Test1 Started Execution
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS
+Test1 Started Execution
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Executing d3b06764 DUT 1 ble leclient scanfordevicename cstadv
+d3b06764 DUT 1 ble leclient scanfordevicename cstadv : PASS
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+d3b06764 DUT enableBT : PASS
+Executing d3b06764 DUT enableLE
+d3b06764 DUT enableLE : PASS

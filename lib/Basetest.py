@@ -6,6 +6,8 @@ import loggingv1
 import androiddevicebt
 from androiddevicebt import Androiddevicebt
 
+global enable
+enable=1
 '''unit testing frame'''
 
 class Basetest(object):
@@ -21,17 +23,18 @@ class Basetest(object):
 	# 	dut1.buildadvertiser(instance,deviceid)
 	# 	dut1.startadvertising(instance,deviceid)
 
-	def advertising(serial,instance,advmode,advpower,connectable,timeout,name,UUID=enums.UUID.UUID0,dut1=Androiddevicebt):
+	def advertising(serial,instance,advmode,advpower,connectable,timeout,name,UUID=enums.UUID.UUID0.value,dut1=Androiddevicebt):
 		dut1.setname(serial,name)
 		dut1.startbuildadvertiser(instance)
 		dut1.advertisingwithname(serial,instance,enable)
+		dut1.addadvdataUUID(UUID,instance)
 		dut1.setadvsetting(instance,advmode,advpower,connectable,timeout)
 		dut1.buildadvertiser(instance)
 		dut1.startadvertising(instance)
 
 	def scanandconnect(self,deviceid,serial,deviceaddr,dut1=Androiddevicebt):
-		dut1.lescan(serial,deviceaddr,deviceid)
-		dut1.connect(serial,deviceaddr,deviceid)
+		dut1.lescan(serial,deviceaddr)
+		dut1.connect(serial,deviceaddr)
 
 	
 

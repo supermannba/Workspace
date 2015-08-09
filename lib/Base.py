@@ -1,7 +1,8 @@
  #!/usr/bin env python 3.4
 
 
-
+global ass
+ass=5
 
 class Base(object):
  	def __init__(self,a,b):
