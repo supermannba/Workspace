@@ -1,0 +1,24 @@
+Test1 Started Execution
+Test1 Started Execution
+Executing 10b768bd DUT enableBT
+DUT enableBT : PASS
+Test1 Started Execution
+Executing 10b768bd DUT enableBT
+DUT enableBT : FAIL
+Executing 10b768bd DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing 10b768bd DUT enableBT
+DUT enableBT : FAIL
+Executing 10b768bd DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing 10b768bd DUT enableBT
+DUT enableBT : FAIL
+Executing 10b768bd DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing 10b768bd DUT enableBT
+DUT enableBT : FAIL
+Executing 10b768bd DUT enableLE
+DUT enableLE : FAIL

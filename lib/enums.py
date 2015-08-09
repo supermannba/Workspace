@@ -16,20 +16,20 @@ class apkinstall(Enum):
 	apkintent='com.android.CST/.ConnectivitySystemTest.ConnectivitySystemTest'
 
 '''advertising introduction'''
-class Advertiserpower(Enum):
+class Advertisingpower(Enum):
 	unltralowpower=0
 	lowpower=1
 	mediumpower=2
 	highpower=3
 
-class Advertisermode(Enum):
+class Advertisingmode(Enum):
 	lowpower=0
 	balanced=1
 	lowlatency=2
 
 class Connectable(Enum):
-	connectable='True'
-	notconnectable='False'
+	connectable='true'
+	notconnectable='false'
 
 class UUID(Enum):
 	UUID0='0000110D-0000-1000-8000-00805F9B34FB'
@@ -61,6 +61,7 @@ class stringpattern(Enum):
 	string11='beginning of system'
 	string12='btm_ble_multi_adv_write_rpa-BD_ADDR:'
 	string13='inst_id:'
+	string14='The address for device is:'
 
 class writedescriptor(Enum):
 	read=1

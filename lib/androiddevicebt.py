@@ -17,139 +17,175 @@ class Androiddevicebt(devicebt):
 	global objectpath
 	global commandfile
 	global resultfile
-	#
+	global Test1
+	global advaddr
+	#global deviceid
+	
 	commandfile='NotifyDUT.txt'
 	resultfile='NotifyBM3.txt'
 	objectpath='/data/'
-	
+	Test1='Test1'
 
 	dut='DUT'
 	BT='BT'
+	bt1='bt'
 	BLE='BLE'
-	ble-'ble'
+	ble='ble'
 	client='client'
 	server='leserver'
 	peripheral='peripheral'
 	central='central'
 
-
-	def __init__(self,deviceid,bt,btle,commandfile,objectpath):
+	def __init__(self,deviceid,bt,btle,sequence,commandfile,objectpath):
 		devicebt.__init__(self,os='Android',bt=True,btle=True)
 		self.deviceid=deviceid
 		self.bt=bt
 		self.btle=btle
+		self.sequence=sequence
 		self.commandfile=commandfile
 		self.objectpath=objectpath
 
-	def writetolog(self,deviceid,command,filename,result):
+	def creatlogfile(self,path):
+		name=self.logname()
+		name1=path+'\\'+name
 		try:
-			with open(filename,'w') as f:
-				f.write('Executing '+deviceid+' '+command)
-				f.write(result)
+			file1=open(name1,'a')
+			file1.write('%s Started Execution\n' % Test1)
+			file1.close()
+			self.logfile=name1
+			return name1
+		except:
+			print('could not generate log file')
+			sys.exit(0)
+
+	def logname(self):
+		name=self.deviceid+'_DUT'+str(self.sequence)+'_execution''.txt'
+		return name
+
+	def writetolog(self,command,filename,result):
+		try:
+			with open(filename,'a') as f:
+				f.write('Executing '+self.deviceid+' '+command+'\n')
+				f.write(result+'\n')
 				f.close()
 		except:
 			print('could not write to the log file')
 
-	def executing(self,deviceid,command,filename):
+	def executing(self,command,filename):
 		sendcommand.sendcommand(command,commandfile)
-		adbmodule.adbpush(deviceid,commandfile,objectpath)
-		t=sendcommand.readresult(deviceid,objectpath,resultfile,command)
+		adbmodule.adbpush(self.deviceid,commandfile,objectpath)
+		t=sendcommand.readresult(self.deviceid,objectpath,resultfile,command)
 		if t:
 			result=command+' : '+'PASS'
 			print(result)
 		else:
 			result=command+' : '+'FAIL'
 			print(result)
-		writetolog(deviceid,command,filename,result)
+		self.writetolog(command,filename,result)
 		time.sleep(1)
 
 	'''initialization'''
-	def turnonBT(self,deviceid):
+	def turnonBT(self):
 		command1='enableBT'
 		command=' '.join([dut,command1])
-		self.executing(deviceid,command)
+		#logfile=self.creatlogfile(adbmodule.createlogpath(Test1))
+		self.executing(command,self.logfile)
 		
 
-	def turnonLE(self,deviceid):
+	def turnonLE(self):
 		command1='enableLE'
 		command=' '.join([dut,command1])
-		self.executing(deviceid,command)
+		#logfile=self.creatlogfile(adbmodule.createlogpath(Test1))
+		self.executing(command,self.logfile)
 
 	'''pairing'''
-	def autoacceptpairingrequest(self,deviceid,enable):
+	def autoacceptpairingrequest(self,enable):
 		command1='autoacceptnextpairingrequest'
 		command=' '.join([dut,BT,command1,enable])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
+
 
 	'''setname'''
-	def setname(self,deviceid,name):
+	def setname(self,serial,name):
 		command1='setname'
-		command=' '.join([dut,BT,command1,name])
-		self.executing(deviceid,command)
+		command=' '.join([dut,str(serial),bt1,command1,name])
+		self.executing(command,self.logfile)
 
 	'''leclient command'''
-	def lescan(self,serial,ble,deviceaddr,deviceid):
+	def lescan(self,serial,ble,deviceaddr):
 		command1='startscan'
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
-	def connect(self,serial,deviceaddr,deviceid):
+
+	def connect(self,serial,deviceaddr):
 		command1='connect'
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
-	def discoverservices(self,serial,deviceaddr,deviceid):
+	def discoverservices(self,serial,deviceaddr):
 		command1='discoverservices'
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
 	def writedescriptor(self,serial,deviceaddr,deviceid,UUID16bit,Characteristic,Descriptor,operation1,writedata):
 		command1='writedescriptor'
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
 	'''leserver command'''
 
 	def configurenewservicewithdatalength(self,serial,ble,deviceid,datalength):
 		command1='configurenewservicewithdatalength'
 		command=' '.join([dut,str(serial),ble,server,command1,str(datalength)])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
 	'''timevalue in ms'''
 	def setnotificationinterval(self,serial,deviceid,timevalue):
 		command1='setnotificationinterval'
 		command=' '.join([dut,str(serial),server,command1,str(timevalue)])
+		self.executing(command,self.logfile)
 
-	def startbuildadvertiser(self,instance,deviceid):
+	'''advertising'''
+	def startbuildadvertiser(self,instance):
 		command1='startbuildadvertiser'
 		command=' '.join([dut,BLE,peripheral,command1,instance])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
-	def addadvdataUUID(self,UUID,instance,deviceid):
+
+	def addadvdataUUID(self,UUID,instance):
 		command1="addadvdata"
 		command=' '.join([dut,BLE,peripheral,command1,UUID,instance])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
-	def setadvsetting(self,instance,advmode,advpower,connectable,timeout,deviceid):
+
+	def setadvsetting(self,instance,advmode,advpower,connectable,timeout):
 		command1='setadvsetting'
 		command=' '.join([dut,BLE,peripheral,command1,instance,advmode,advpower,timeout,connectable])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
-	def buildadvertiser(self,instance,deviceid):
+
+	def buildadvertiser(self,instance):
 		command1='buildadvertiser'
 		command=' '.join([dut,BLE,peripheral,command1,instance])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
-	def startadvertising(self,instance,deviceid):
+
+	def startadvertising(self,instance):
 		command1='startadv'
 		command=' '.join([dut,BLE,peripheral,command1,instance])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
-	def stopadvertising(self,instance,deviceid):
+
+	def stopadvertising(self,instance):
 		command1='stopadv'
 		command=' '.join([dut,BLE,peripheral,command1,instance])
-		self.executing(deviceid,command)
+		self.executing(command,self.logfile)
 
+	def advertisingwithname(self,serial,instance,enable):
+		command1='includedevicename'
+		command=' '.join([dut,str(serial),ble,peripheral,'addadvdata',instance,command1,str(enable)])
+		self.executing(command,self.logfile)
 		
 
 

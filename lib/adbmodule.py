@@ -1,7 +1,7 @@
  #!/usr/bin env python 3.4
 
 import subprocess
-import os,re
+import os,re,sys
 import enums
 from androiddevicebt import Androiddevicebt
 import androiddevicebt
@@ -89,20 +89,22 @@ def initialization():
 		subprocess.call(["adb","-s",device,"shell","am","start","-n",enums.apkinstall.apkintent.value])
 	return devicelist
 
-def creatlogfile(device):
-	name=device+' logcat'+'.txt'
-	try:
-		file1=open(name,'r+')
-		file1.close()
-		return name
-	except:
-		print('could not generate log file')
-		sys.exit(0)
+
+def createlogpath(test):
+	path1=os.path.abspath(os.getcwd())
+	path2='\\Log\\'
+	path3=test
+	path=path1+path2+path3
+	if not os.path.exists(path):
+		os.mkdir(path)
+	return path
+
+
 
 def initializedut():
 	devicelist=adbdevice()
 	dut=[]
 	for device in devicelist:
-		dut.append(Androiddevicebt(deviceid=device,bt=True,btle=True,commandfile=androiddevicebt.commandfile,objectpath=androiddevicebt.objectpath))
+		dut.append(Androiddevicebt(deviceid=device,bt=True,btle=True,sequence=(devicelist.index(device)+1),commandfile=androiddevicebt.commandfile,objectpath=androiddevicebt.objectpath))
 	return dut
 

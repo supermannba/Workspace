@@ -1,0 +1,20 @@
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : FAIL
+Executing d3b06764 DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : FAIL
+Executing d3b06764 DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : FAIL
+Executing d3b06764 DUT enableLE
+DUT enableLE : FAIL
+Test1 Started Execution
+Executing d3b06764 DUT enableBT
+DUT enableBT : FAIL
+Executing d3b06764 DUT enableLE
+DUT enableLE : FAIL
