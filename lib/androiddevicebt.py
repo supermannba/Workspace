@@ -168,7 +168,7 @@ class Androiddevicebt(devicebt):
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
 		self.executing(command,self.logfile)
 
-	def writedescriptor(self,serial,deviceaddr,deviceid,UUID16bit,Characteristic,Descriptor,operation1,writedata):
+	def writedescriptor(self,serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata):
 		command1='writedescriptor'
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,str(UUID16bit),str(Characteristic),str(Descriptor),str(operation1),str(writedata)])
 		self.executing(command,self.logfile)

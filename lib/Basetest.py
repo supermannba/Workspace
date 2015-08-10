@@ -16,13 +16,6 @@ class Basetest(object):
 		dut1.turnonBT()
 		dut1.turnonLE()
 
-	# def advertising(self,deviceid,instance,UUID,advmode,advpower,connectable,timeout,dut1=Androiddevicebt):
-	# 	dut1.setadvsetting(instance,advmode,abvpower,connectable,timeout,deviceid)
-	# 	dut1.startbuildadvertiser(instance,deviceid)
-	# 	dut1.addadvdataUUID(UUID,instance,deviceid)
-	# 	dut1.buildadvertiser(instance,deviceid)
-	# 	dut1.startadvertising(instance,deviceid)
-
 	def advertising(serial,instance,advmode,advpower,connectable,timeout,name,UUID=enums.UUID.UUID0.value,dut1=Androiddevicebt):
 		dut1.setname(serial,name)
 		dut1.startbuildadvertiser(instance)
@@ -32,10 +25,14 @@ class Basetest(object):
 		dut1.buildadvertiser(instance)
 		dut1.startadvertising(instance)
 
-	def scanandconnect(self,deviceid,serial,deviceaddr,dut1=Androiddevicebt):
+	def scanandconnect(serial,deviceaddr,dut1=Androiddevicebt):
 		dut1.lescan(serial,deviceaddr)
 		dut1.connect(serial,deviceaddr)
 
+	def writedescriptor(serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata,dut1=Androiddevicebt):
+		dut1.discoverservices(serial,deviceaddr)
+		dut1.writedescriptor(serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata)
+		
 	
 
 
