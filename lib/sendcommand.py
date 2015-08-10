@@ -6,7 +6,7 @@ import os,time,enums
 global objectpath
 global commandfile
 import re,subprocess
-
+import shutil
 global advaddr
 advaddr='1'
 
@@ -47,3 +47,32 @@ def readresult(device,objectpath,filename,command):
 		except Exception as e:
 			return False
 			print(e) 
+
+def notifyremote(filename,networkpath):
+	with open(enums.Filename.tempresultfile.value,'r') as f:
+		for line in f:
+			if 'PASS' in line or 'FAIL' in line:
+				command=line
+	with open(filename,'w') as f:
+		f.write(command)
+		f.close()
+	try:
+		shutil.copyfile(os.path.join(os.getcwd()+filename),os.path.join(networkpath+filename))
+	except Exception as e:
+		print(e)
+
+def getnetworkpath(host):
+	
+
+def readnotify(filename,networkpath):
+	filename1=networkpath+filename
+	with open(filename1,'r') as f:
+		for line in f:
+			if 'PASS' in line:
+				return True
+			else:
+				return False
+
+
+
+

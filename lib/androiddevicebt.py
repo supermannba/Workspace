@@ -32,6 +32,7 @@ class Androiddevicebt(devicebt):
 	
 	commandfile='NotifyDUT.txt'
 	resultfile='NotifyBM3.txt'
+	tempresultfile='Tempresult.txt'
 	objectpath='/data/'
 	Test1='Test1'
 
@@ -69,6 +70,15 @@ class Androiddevicebt(devicebt):
 			print('could not generate log file')
 			sys.exit(0)
 
+	def createtemplog(self):
+		name=tempresultfile
+		try:
+			file1=open(name,'w')
+			file1.close()
+		except:
+			print('could not generate temp log')
+			sys.exit(0)
+
 	def logname(self):
 		name=self.deviceid+'_DUT'+str(self.sequence)+'_execution'+'.txt'
 		return name
@@ -77,14 +87,20 @@ class Androiddevicebt(devicebt):
 		name=self.deviceid+'_DUT'+str(self.sequence)+'_logcat'+'.txt'
 		return name
 
-	def writetolog(self,command,filename,result):
+	def writetolog(self,command,filename,result,temp):
+		if temp=0:
+			option='a'
+		elif temp=1:
+			option='w'
 		try:
-			with open(filename,'a') as f:
+			with open(filename,option) as f:
 				f.write('Executing '+self.deviceid+' '+command+'\n')
 				f.write(result+'\n')
 				f.close()
 		except:
 			print('could not write to the log file')
+
+
 
 	def executing(self,command,filename):
 		sendcommand.sendcommand(command,commandfile)
@@ -96,7 +112,8 @@ class Androiddevicebt(devicebt):
 		else:
 			result=self.deviceid+' '+command+' : '+'FAIL'
 			print(result)
-		self.writetolog(command,filename,result)
+		self.writetolog(command,filename,result,temp=0)
+		self.writetolog(command,tempresultfile,result,temp=1)
 		self.advaddr=t[1]
 		time.sleep(1)
 
