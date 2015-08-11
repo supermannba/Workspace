@@ -10,10 +10,10 @@ from Basetest import Basetest
 import loggingv1,sys
 
 '''device initiliazation'''
-#devicelist=adbmodule.initialization()
+devicelist=adbmodule.initialization()
 dut=adbmodule.initializedut()
 test=Basetest
-time.sleep(5)
+time.sleep(7)
 logname=[]
 logcatname=[]
 process=[]
