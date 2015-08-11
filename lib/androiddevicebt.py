@@ -25,6 +25,7 @@ class Androiddevicebt(devicebt):
 	global serviceuuid
 	global objectpath
 	global commandfile
+	global tempresultfile
 	global resultfile
 	global Test1
 	global advaddr
@@ -88,9 +89,9 @@ class Androiddevicebt(devicebt):
 		return name
 
 	def writetolog(self,command,filename,result,temp):
-		if temp=0:
+		if temp==0:
 			option='a'
-		elif temp=1:
+		elif temp==1:
 			option='w'
 		try:
 			with open(filename,option) as f:

@@ -20,8 +20,8 @@ class apkinstall(Enum):
 '''networkpath'''
 class networkpath(Enum):
 	astbt11='\\\\ast-bt11\\Dropbox\\Wipower\\test\\'
-	BTTESTWS2='\\\\BT-TEST-WS2\\Dropbox\\'
-	WCONNECTBT39='\\\\WCONNECT-BT-39\\Dropbox\\'
+	BTTESTWS2='\\\\BT-TEST-WS2\\Dropbox\\Test'
+	WCONNECTBT39='\\\\WCONNECT-BT-39\\Dropbox\\Test'
 
 
 '''advertising introduction'''

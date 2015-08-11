@@ -1,0 +1,45 @@
+--------- beginning of main
+08-11 01:04:34.586 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:34.587 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:34.629 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:34.631 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:34.632 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:34.674 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:34.676 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:34.676 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:34.719 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:34.723 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:34.723 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:34.766 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:39.772 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:39.772 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:39.848 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:40.764 I/MSM-irqbalance(  515): Decided to move IRQ271 from CPU2 to CPU3
+08-11 01:04:42.002 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:42.003 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:42.052 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:42.057 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:42.057 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:42.100 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:42.101 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:42.102 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:42.144 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:42.147 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:42.147 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:42.189 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:42.191 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:42.192 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:42.234 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:42.237 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:42.237 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:42.279 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:42.282 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:42.282 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:42.325 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:42.326 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:42.326 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:42.369 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:42.372 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
+08-11 01:04:42.373 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
+08-11 01:04:42.415 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
+08-11 01:04:48.364 D/Netli
