@@ -41,5 +41,4 @@
 08-11 01:04:42.369 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
 08-11 01:04:42.372 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK ON using UART driver's ioctl()
 08-11 01:04:42.373 I/WCNSS_FILTER( 7399): do_write: IBS write: fc
-08-11 01:04:42.415 I/WCNSS_FILTER( 7399): ibs_msm_serial_clock_vote: vote UART CLK OFF using UART driver's ioctl()
-08-11 01:04:48.364 D/Netli
+08-11 01:04:42.415 I/WCNSS_

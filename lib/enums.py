@@ -19,9 +19,10 @@ class apkinstall(Enum):
 
 '''networkpath'''
 class networkpath(Enum):
+	selfhost='C:\\Dropbox\\Test\\'
 	astbt11='\\\\ast-bt11\\Dropbox\\Wipower\\test\\'
-	BTTESTWS2='\\\\BT-TEST-WS2\\Dropbox\\Test'
-	WCONNECTBT39='\\\\WCONNECT-BT-39\\Dropbox\\Test'
+	BTTESTWS2='\\\\BT-TEST-WS2\\Dropbox\\Test\\'
+	WCONNECTBT39='\\\\WCONNECT-BT-39\\Dropbox\\Test\\'
 
 
 '''advertising introduction'''
@@ -83,5 +84,7 @@ class writedescriptor(Enum):
 	indication=4
 
 
-
+class noticeevent(Enum):
+	advertisingstart='DUT BLE peripheral startadv'
+	turnleon='DUT enableLE'
 

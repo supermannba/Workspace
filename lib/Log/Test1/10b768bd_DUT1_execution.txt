@@ -494,3 +494,28 @@ Executing 10b768bd DUT enableBT
 10b768bd DUT enableBT : PASS
 Executing 10b768bd DUT enableLE
 10b768bd DUT enableLE : PASS
+Test1 Started Execution
+Executing 10b768bd DUT enableBT
+10b768bd DUT enableBT : PASS
+Executing 10b768bd DUT enableLE
+10b768bd DUT enableLE : PASS
+Test1 Started Execution
+Executing 10b768bd DUT enableBT
+10b768bd DUT enableBT : PASS
+Executing 10b768bd DUT enableLE
+10b768bd DUT enableLE : PASS
+Test1 Started Execution
+Executing 10b768bd DUT enableBT
+10b768bd DUT enableBT : PASS
+Executing 10b768bd DUT enableLE
+10b768bd DUT enableLE : PASS
+Test1 Started Execution
+Executing 10b768bd DUT enableBT
+10b768bd DUT enableBT : PASS
+Executing 10b768bd DUT enableLE
+10b768bd DUT enableLE : PASS
+Test1 Started Execution
+Executing 10b768bd DUT enableBT
+10b768bd DUT enableBT : PASS
+Executing 10b768bd DUT enableLE
+10b768bd DUT enableLE : PASS

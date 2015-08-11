@@ -10,7 +10,7 @@ from Basetest import Basetest
 import loggingv1,sys
 
 '''device initiliazation'''
-devicelist=adbmodule.initialization()
+#devicelist=adbmodule.initialization()
 dut=adbmodule.initializedut()
 test=Basetest
 time.sleep(7)
@@ -34,7 +34,7 @@ for i in range(len(dut)):
 #test.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,dut1=dut[0])
 # dut[1].scanforname(serial=1,name=advname)
 # dut[0].advaddr=dut[1].advaddr
-peripheralPCname=enums.networkpath.WCONNECTBT39.name
+peripheralPCname=enums.networkpath.BTTESTWS2.name
 sendcommand.notifyremote(enums.Filename.notifyfile.value,host=peripheralPCname)
 
 

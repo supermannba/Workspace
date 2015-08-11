@@ -68,12 +68,18 @@ def notifyremote(filename,host):
 def getnetworkpath(host):
 	for i in enums.networkpath:
 		if host==i.name:
-			print('match')
-			print(i.value)
 			networkpath1=i.value
 			return networkpath1
 		
 	print('could not find the path')
+
+def checknotify(filename,host):
+	path1=getnetworkpath(host)
+	while True:
+		if os.path.isfile(filename):
+			break
+		time.sleep(1)
+	return True
 
 
 def readnotify(filename,networkpath):
@@ -85,18 +91,25 @@ def readnotify(filename,networkpath):
 			else:
 				return False
 
+
 def verifyremote(command,filename):
-	for i in range(300):
-		if os.path.isfile(filename):
-			file1=open(filename,'r')
-			for line in file1:
-				if command in line:
-					return True
-					break
-		i=i+1
-		time.sleep(1)
-	print('Process Failure')
-	return False
+	host=enums.networkpath.selfhost.name
+	path1=getnetworkpath(host)
+	filename1=path1+filename
+	notify=False
+	notify=checknotify(filename,host)
+	if notify:
+		for i in range(300):
+			if os.path.isfile(filename1):
+				file1=open(filename1,'r')
+				for line in file1:
+					if command in line:
+						return True
+						break
+			i=i+1
+			time.sleep(1)
+		print('Process Failure')
+		return False
 
 
 

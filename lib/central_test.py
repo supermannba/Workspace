@@ -32,12 +32,16 @@ for i in range(len(dut)):
 	test.initialize(dut[i])
 
 #test.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,dut1=dut[0])
+success=sendcommand.verifyremote(enums.noticeevent.turnleon.value,enums.Filename.notifyfile.value)
+
 
 
 
 time.sleep(15)
 for i in range(len(dut)):
 	process[i].kill()
+tempfile=enums.networkpath.selfhost.value+enums.Filename.notifyfile.value
+os.remove(tempfile)
 sys.exit(0)
 
 
