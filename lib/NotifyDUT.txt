@@ -1,1 +1,1 @@
-DUT enableLE
+DUT 1 ble leclient writedescriptor 41:DD:DD:D9:17:12 1205 1115 2902 00 01

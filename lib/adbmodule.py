@@ -99,8 +99,6 @@ def createlogpath(test):
 		os.mkdir(path)
 	return path
 
-
-
 def initializedut():
 	devicelist=adbdevice()
 	dut=[]

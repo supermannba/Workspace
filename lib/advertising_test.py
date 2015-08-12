@@ -31,7 +31,10 @@ for i in range(len(dut)):
 #	process.append(loggingv1.startlogcat(dut[i].deviceid,logcatname[i]))
 	test.initialize(dut[i])
 
-test.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,dut1=dut[0])
+number=input("please input the number of instance you want:")
+number1=int(number)
+for i in range(number1):
+	test.advertising(serial=i+1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,dut1=dut[0])
 # dut[1].scanforname(serial=1,name=advname)
 # dut[0].advaddr=dut[1].advaddr
 # peripheralPCname=enums.networkpath.BTTESTWS2.name

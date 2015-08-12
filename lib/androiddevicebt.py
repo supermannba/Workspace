@@ -62,7 +62,7 @@ class Androiddevicebt(devicebt):
 		name=self.logname()
 		name1=path+'\\'+name
 		try:
-			file1=open(name1,'a')
+			file1=open(name1,'w')
 			file1.write('%s Started Execution\n' % Test1)
 			file1.close()
 			self.logfile=name1
@@ -115,7 +115,8 @@ class Androiddevicebt(devicebt):
 			print(result)
 		self.writetolog(command,filename,result,temp=0)
 		self.writetolog(command,tempresultfile,result,temp=1)
-		self.advaddr=t[1]
+		if t[1] is not '1':
+			self.advaddr=t[1]
 		time.sleep(1)
 
 	'''initialization'''
@@ -169,6 +170,11 @@ class Androiddevicebt(devicebt):
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
 		self.executing(command,self.logfile)
 
+	def configuremtu(self,serial,deviceaddr,datalength):
+		command1='configuremtu'
+		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,str(datalength)])
+		self.executing(command,self.logfile)
+
 	def writedescriptor(self,serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata):
 		command1='writedescriptor'
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,str(UUID16bit),str(Characteristic),str(Descriptor),str(operation1),str(writedata)])
@@ -176,13 +182,13 @@ class Androiddevicebt(devicebt):
 
 	'''leserver command'''
 
-	def configurenewservicewithdatalength(self,serial,ble,deviceid,datalength):
+	def configurenewservicewithdatalength(self,serial,datalength):
 		command1='configurenewservicewithdatalength'
 		command=' '.join([dut,str(serial),ble,server,command1,str(datalength)])
 		self.executing(command,self.logfile)
 
 	'''timevalue in ms'''
-	def setnotificationinterval(self,serial,deviceid,timevalue):
+	def setnotificationinterval(self,serial,timevalue):
 		command1='setnotificationinterval'
 		command=' '.join([dut,str(serial),server,command1,str(timevalue)])
 		self.executing(command,self.logfile)

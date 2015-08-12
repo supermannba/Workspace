@@ -1,2 +1,2 @@
-Executing 10b768bd DUT enableLE
-10b768bd DUT enableLE : PASS
+Executing 10b768bd DUT 1 ble leclient writedescriptor 41:DD:DD:D9:17:12 1205 1115 2902 00 01
+10b768bd DUT 1 ble leclient writedescriptor 41:DD:DD:D9:17:12 1205 1115 2902 00 01 : PASS

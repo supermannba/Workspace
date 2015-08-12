@@ -7,7 +7,7 @@ import androiddevicebt
 from androiddevicebt import Androiddevicebt
 
 global enable
-enable=1
+enable='true'
 '''unit testing frame'''
 
 class Basetest(object):
@@ -25,13 +25,14 @@ class Basetest(object):
 		dut1.buildadvertiser(instance)
 		dut1.startadvertising(instance)
 
-	def scanandconnect(serial,deviceaddr,dut1=Androiddevicebt):
-		dut1.lescan(serial,deviceaddr)
+	def scanandconnect(serial,advname,dut1=Androiddevicebt):
+		dut1.scanforname(serial,advname)
+		deviceaddr=dut1.advaddr
 		dut1.connect(serial,deviceaddr)
 
-	def writedescriptor(serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata,dut1=Androiddevicebt):
-		dut1.discoverservices(serial,deviceaddr)
-		dut1.writedescriptor(serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata)
+	def writedescriptor(serial,UUID16bit,Characteristic,Descriptor,operation1,writedata,dut1=Androiddevicebt):
+		dut1.discoverservices(serial,dut1.advaddr)
+		dut1.writedescriptor(serial,dut1.advaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata)
 		
 	
 

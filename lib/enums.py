@@ -55,9 +55,14 @@ class UUID(Enum):
 
 class UUID16bit(Enum):
 	UUID0='1200'
+	UUID1='1201'
+	UUID2='1202'
+	UUID5='1205'
 
 class Characteristic(Enum):
 	CID0='1100'
+	CID1='1115'
+
 
 class Descriptor(Enum):
 	DES0='2902'

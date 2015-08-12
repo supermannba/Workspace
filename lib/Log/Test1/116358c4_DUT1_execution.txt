@@ -1,6 +1,0 @@
-Test1 Started Execution
-Test1 Started Execution
-Executing 116358c4 DUT enableBT
-116358c4 DUT enableBT : PASS
-Executing 116358c4 DUT enableLE
-116358c4 DUT enableLE : PASS
