@@ -37,6 +37,7 @@ def thread2(args1,stop_event):
 def cleanlogcat(deviceid):
 	string=["adb","-s",deviceid,"shell","logcat","-c"]
 	command=' '.join(string)	
+	print('cleanlogcat')
 	try: 
 		process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
 	except Exception as e:
@@ -45,6 +46,7 @@ def cleanlogcat(deviceid):
 def startlogcat(deviceid,filename):
 	string=["adb","-s",deviceid,"shell logcat -v time | tee",filename]
 	command=' '.join(string)
+	print('startlogcat')
 	try: 
 		process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
 		return process

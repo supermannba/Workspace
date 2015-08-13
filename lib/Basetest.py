@@ -16,7 +16,7 @@ class Basetest(object):
 		dut1.turnonBT()
 		dut1.turnonLE()
 
-	def advertising(serial,instance,advmode,advpower,connectable,timeout,name,UUID=enums.UUID.UUID0.value,dut1=Androiddevicebt):
+	def advertising(serial,instance,advmode,advpower,connectable,timeout,name,remotehost,notify=False,UUID=enums.UUID.UUID0.value,dut1=Androiddevicebt):
 		dut1.setname(serial,name)
 		dut1.startbuildadvertiser(instance)
 		dut1.advertisingwithname(serial,instance,enable)
@@ -24,6 +24,10 @@ class Basetest(object):
 		dut1.setadvsetting(instance,advmode,advpower,connectable,timeout)
 		dut1.buildadvertiser(instance)
 		dut1.startadvertising(instance)
+		if notify==True:
+			sendcommand.notifyremote(enums.Filename.notifyfile.value,host=remotehost)
+		else:
+			print('advertisng instance %d finish\n' % instance)
 
 	def scanandconnect(serial,advname,dut1=Androiddevicebt):
 		dut1.scanforname(serial,advname)

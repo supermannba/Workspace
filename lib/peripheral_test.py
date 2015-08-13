@@ -10,7 +10,7 @@ from Basetest import Basetest
 import loggingv1,sys
 
 '''device initiliazation'''
-devicelist=adbmodule.initialization()
+#devicelist=adbmodule.initialization()
 dut=adbmodule.initializedut()
 test=Basetest
 time.sleep(7)
@@ -18,7 +18,7 @@ logname=[]
 logcatname=[]
 process=[]
 testname='Test1'
-advname='cstadv'
+advname='cstadv11'
 
 logpath=adbmodule.createlogpath(testname)
 
@@ -29,13 +29,11 @@ for i in range(len(dut)):
 #	loggingv1.cleanlogcat(dut[i].deviceid)
 	time.sleep(2)
 #	process.append(loggingv1.startlogcat(dut[i].deviceid,logcatname[i]))
-	test.initialize(dut[i])
+	#test.initialize(dut[i])
 
-test.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,dut1=dut[0])
+test.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,notify=False,remotehost='BTTESTWS2',dut1=dut[0])
 # dut[1].scanforname(serial=1,name=advname)
 # dut[0].advaddr=dut[1].advaddr
-# peripheralPCname=enums.networkpath.BTTESTWS2.name
-# sendcommand.notifyremote(enums.Filename.notifyfile.value,host=peripheralPCname)
 
 
 # time.sleep(15)

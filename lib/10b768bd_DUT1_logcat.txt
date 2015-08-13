@@ -1,35 +1,14 @@
 --------- beginning of main
-08-12 14:57:07.866 D/ConnectivitySystemTest:commInterface(11628):  String Read from NotifyDUT file is :DUT enableBT
-08-12 14:57:07.869 D/ConnectivitySystemTest:BASE(11628): --------------------------------------------------------------------------------------------
-08-12 14:57:07.870 D/ConnectivitySystemTest:BASE(11628): Executing next Command:DUT enableBT
-08-12 14:57:07.870 D/ConnectivitySystemTest:BASE(11628): --------------------------------------------------------------------------------------------
-08-12 14:57:07.879 D/ConnectivitySystemTest:BASE(11628): 11939:Active threads =1
-08-12 14:57:07.879 D/ConnectivitySystemTest:BASE(11628): The cmd: DUT enableBT :is going to be executed
-08-12 14:57:07.881 W/System.err(11628): java.lang.NumberFormatException: Invalid int: "enableBT"
-08-12 14:57:07.882 W/System.err(11628): 	at java.lang.Integer.invalidInt(Integer.java:138)
-08-12 14:57:07.882 W/System.err(11628): 	at java.lang.Integer.parse(Integer.java:410)
-08-12 14:57:07.882 W/System.err(11628): 	at java.lang.Integer.parseInt(Integer.java:367)
-08-12 14:57:07.849 W/Thread-427(11644): type=1400 audit(0.0:557): avc: granted { remove_name } for name="NotifyDUT.txt" dev="mmcblk0p37" ino=167 scontext=u:r:system_app:s0 tcontext=u:object_r:system_data_file:s0 tclass=dir
-08-12 14:57:07.882 W/System.err(11628): 	at java.lang.Integer.parseInt(Integer.java:334)
-08-12 14:57:07.882 W/System.err(11628): 	at com.android.CST.ConnectivitySystemTest.ConnectivitySystemTest.cmdHandler(ConnectivitySystemTest.java:1040)
-08-12 14:57:07.882 W/System.err(11628): 	at com.android.CST.ConnectivitySystemTest.ConnectivitySystemTest.access$700(ConnectivitySystemTest.java:80)
-08-12 14:57:07.882 W/System.err(11628): 	at com.android.CST.ConnectivitySystemTest.ConnectivitySystemTest$3.run(ConnectivitySystemTest.java:372)
-08-12 14:57:07.885 D/ConnectivitySystemTest:BASE(11628): No need to worry about this exception. it's intended for backward compatibility
-08-12 14:57:07.885 D/ConnectivitySystemTest:BASE(11628): Current AppConfigKey:enableLEValue:true
-08-12 14:57:07.885 D/ConnectivitySystemTest:BASE(11628): Current AppConfigKey:enableBTValue:true
-08-12 14:57:07.885 D/ConnectivitySystemTest:BASE(11628): Key:enableBT Value:True
-08-12 14:57:07.885 D/ConnectivitySystemTest:BASE(11628): Updated the Key value pair:enableBT Value:true
-08-12 14:57:07.887 D/ConnectivitySystemTest:BASE(11628): Initializing required technologies
-08-12 14:57:07.890 D/ConnectivitySystemTest:BASE(11628): Tech:enableBT already initialized
-08-12 14:57:07.890 D/ConnectivitySystemTest:BASE(11628): Tech:enableLE already initialized
-08-12 14:57:07.890 D/ConnectivitySystemTest:BASE(11628): Returning value - true
-08-12 14:57:07.859 W/Thread-427(11644): type=1400 audit(0.0:558): avc: granted { unlink } for name="NotifyDUT.txt" dev="mmcblk0p37" ino=167 scontext=u:r:system_app:s0 tcontext=u:object_r:system_data_file:s0 tclass=file
-08-12 14:57:08.391 D/ConnectivitySystemTest:BASE(11628): The Cmd: DUT enableBT: was executed successfully
-08-12 14:57:08.392 D/ConnectivitySystemTest:BASE(11628): Final result String :DUT enableBT PASS COMMENT:  WARN: 
-08-12 14:57:08.399 D/ConnectivitySystemTest:commInterface(11628): Result Notified back to CSTCore : true
-08-12 14:57:08.399 D/ConnectivitySystemTest:BASE(11628): 11939:Killing current Thread. Pending active threads =0
-08-12 14:57:08.399 D/ConnectivitySystemTest:BASE(11628): --------------------------------------------------------------------------------------------
-08-12 14:57:08.399 D/ConnectivitySystemTest:BASE(11628): Command Execution Finished :DUT enableBT
-08-12 14:57:08.399 D/ConnectivitySystemTest:BASE(11628): --------------------------------------------------------------------------------------------
-08-12 14:57:08.389 W/Thread-452(11939): type=1400 audit(0.0:559): avc: granted { add_name } for name="NotifyBM3.txt" scontext=u:r:system_app:s0 tcontext=u:object_r:system_data_file:s0 tclass=dir
-08-12 14:57:08.389 W/Thread-452(11939): type=1400 audit(0.0:560): avc: granted { create } for name="NotifyBM3.txt" scontext=u:r:system_app:s0 tcontext=u:object_r:system_data_file:s0 tclass=file
+08-12 17:35:30.617 D/QcrilMsgTunnelSocket( 4840): readRilMessage: Buffer = [B@6e519ea HexData = [010000000404000011000000514f454d484f4f4bef0308000100000003]
+08-12 17:35:30.617 D/QcrilMsgTunnelSocket( 4840): Rcvd UNSOL response with 28 bytes data for SUB0
+08-12 17:35:30.620 D/QcrilMsgTunnelSocket( 4840): Response ID 525295 is not served in this process.
+08-12 17:35:30.620 D/QcrilMsgTunnelSocket( 4840): To broadcast an Intent via the notifier to external apps
+08-12 17:35:30.621 D/QcrilMsgTunnelIfaceManager( 4840): handleMessage what = 0
+08-12 17:35:30.621 D/QcrilMsgTunnelIfaceManager( 4840): Broadcasting intent ACTION_UNSOL_RESPONSE_OEM_HOOK_RAW
+08-12 17:35:30.635 D/QcrilMsgTunnelSocket( 4840): readRilMessage: Buffer = [B@6e519ea HexData = [010000000404000011000000514f454d484f4f4bef0308000100000003]
+08-12 17:35:30.635 D/QcrilMsgTunnelSocket( 4840): Rcvd UNSOL response with 28 bytes data for SUB0
+08-12 17:35:30.636 D/QcrilMsgTunnelSocket( 4840): Response ID 525295 is not served in this process.
+08-12 17:35:30.636 D/QcrilMsgTunnelSocket( 4840): To broadcast an Intent via the notifier to external apps
+08-12 17:35:30.636 D/QcrilMsgTunnelIfaceManager( 4840): handleMessage what = 0
+08-12 17:35:30.636 D/QcrilMsgTunnelIfaceManager( 4840): Broadcasting intent ACTION_UNSOL_RESPONSE_OEM_HOOK_RAW
+08-12 17:35:31.320 I/MSM-irqbalance(  619): Decided to move IRQ224 from CPU0 to CPU1

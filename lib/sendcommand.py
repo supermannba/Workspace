@@ -97,6 +97,7 @@ def verifyremote(command,filename):
 	path1=getnetworkpath(host)
 	filename1=path1+filename
 	notify=False
+	print('waiting for result from other side for command:%s' % command)
 	notify=checknotify(filename,host)
 	if notify:
 		for i in range(300):
