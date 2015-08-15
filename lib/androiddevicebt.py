@@ -103,17 +103,60 @@ class Androiddevicebt(devicebt):
 			print('could not write to the log file')
 
 
-	def establishsocket(self,port):
-		pass
+	def establishsocket(self):
+		try:
+			s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+			print('socket created')
+			return s
+		except:
+			print('create failed, error code'+str(msg[0])+'Message: '+msg[1])
+			return None
 
-	def socketsenddata(self,port,data):
-		pass
+	def serverlisten(self,socket,port,time):
+		host=''
+		try:
+			socket.bind((host,port))
+		except:
+			print('bind failed, error code'+str(msg[0])+'Message: '+msg[1])
+			sys.exit()
+		socket.listen(time)
+		while True:
+			conn,addr=socket.accept()
+			print('conneted with '+addr[0]+':'+str(addr[1]))
+			data=conn.recv(1024)
+			result1=data.decode("utf-8")
+			conn.close()
+			socket.close()
+			break
+		return result1
 
-	def socketreceivedata(self,port):
-		pass
+	def socketsenddata(self,socket,port,data,remotehost):
+		remoteip=socket.gethostbyname(remotehost)
+		try:
+			socket.connect((remoteip,port))
+		except socket.error:
+			print('connection error')
+			sys.exit()
+		try:
+			socket.sendall(data)
+		except socket.error:
+			print('send failed')
+			sys.exit()
+		socket.close()
+		
+	def checkdata(self,port,event,time):
+		socket1=self.establishsocket()
+		data1=self.serverlisten(socket1,port,time)
+		if event in data1:
+			return True
+		else:
+			return False
 
-	def closesocket(self):
-		pass
+	# def socketreceivedata(self,port):
+	# 	pass
+
+	def closesocket(self,socket):
+		socket.close()
 
 
 	def executing(self,command,filename):

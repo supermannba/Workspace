@@ -13,6 +13,7 @@ class Filename(Enum):
 	notifyfile='Resultnotify.txt'
 	tempresultfile='Tempresult.txt'
 	objectpath='/data/'
+	logpath='\\Log\\Test\\'
 
 class apkinstall(Enum):
 	apkpath='C:\\CST_QSPR\\qualcomm_bin\\Android\\MRelease\\'
@@ -26,6 +27,15 @@ class networkpath(Enum):
 	BTTESTWS2='\\\\BT-TEST-WS2\\Dropbox\\Test\\'
 	WCONNECTBT39='\\\\WCONNECT-BT-39\\Dropbox\\Test\\'
 
+class Hostname(Enum):
+	Localhost='localhost'
+	WCONNECTBT39='WCONNECT-BT-39'
+	BTTESTWS2='BT-TEST-WS2'
+	supermannba='supermannba'
+
+class Tcpport(Enum):
+	port1=8888
+	port2=80
 
 '''advertising introduction'''
 class Advertisingpower(Enum):
