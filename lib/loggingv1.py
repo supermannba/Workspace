@@ -43,6 +43,21 @@ def cleanlogcat(deviceid):
 	except Exception as e:
 		print(e)
 
+
+def startlogcat1(deviceid,filename):
+	string=["adb","-s",deviceid,"shell logcat -v time"]
+	command=' '.join(string)
+	with open(filename,'w') as f:
+		f.close()
+	print('startlogcat')
+	try: 
+		process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
+		return process
+	except Exception as e:
+		print(e)
+		return None
+
+
 def startlogcat(deviceid,filename):
 	string=["adb","-s",deviceid,"shell logcat -v time | tee",filename]
 	command=' '.join(string)

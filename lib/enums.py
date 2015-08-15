@@ -5,6 +5,8 @@ from enum import Enum
 
 
 '''file name'''
+
+
 class Filename(Enum):
 	commandfile='NotifyDUT.txt'
 	resultfile='NotifyBM3.txt'

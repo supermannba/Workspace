@@ -5,6 +5,7 @@ from devicebt import devicebt
 import sendcommand
 import enums
 import adbmodule,time
+import socket,sys
 
 
 #global commandfile
@@ -101,6 +102,18 @@ class Androiddevicebt(devicebt):
 		except:
 			print('could not write to the log file')
 
+
+	def establishsocket(self,port):
+		pass
+
+	def socketsenddata(self,port,data):
+		pass
+
+	def socketreceivedata(self,port):
+		pass
+
+	def closesocket(self):
+		pass
 
 
 	def executing(self,command,filename):
