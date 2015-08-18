@@ -65,6 +65,13 @@ class COMdevice(Serial):
 			print("could not open the serial port")
 
 	def settingconfirm(self,command):
+		if not self.isOpen():
+			try:
+				self.open()
+			except Exception as e:
+				print('error open serial port'+str(e))
+				exit()
+
 		result=self.sendcommand(command)
 		self.closecom
 		if result==Setting:
@@ -75,18 +82,28 @@ class COMdevice(Serial):
 
 
 	def clearerrorstatus(self):
-		try:
-			self.open()
-		except Exception as e:
-			print('error open serial port'+str(e))
-			exit()
-		command='*CLS'
-		result=self.sendcommand(command)
-		self.close()
-		if result==Setting:
-			return True
+		commasnd='*CLS'
+		result=self.settingconfirm(command)
+		if result:
+			return True:
 		else:
 			return False
+
+	def selftest(self):
+		command='*TST?'
+		if self.serialopen():
+			result=self.sendcommand(command)
+			if result='0':
+				return True
+			else:
+				return False
+		else:
+			return False
+
+	def errorcode(self):
+		command='ERR?'
+		pass
+
 
 
 
