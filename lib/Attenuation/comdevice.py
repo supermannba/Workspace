@@ -85,7 +85,7 @@ class COMdevice(Serial):
 		commasnd='*CLS'
 		result=self.settingconfirm(command)
 		if result:
-			return True:
+			return True
 		else:
 			return False
 
