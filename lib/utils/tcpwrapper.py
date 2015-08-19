@@ -15,7 +15,7 @@ class Tcpwrapper:
 		if sock is None:
 			self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 		else:
-			self.socck=sock
+			self.sock=sock
 		self.logger=logger
 
 	def connect(self,host,port):
@@ -49,7 +49,7 @@ class Tcpwrapper:
 		while True:
 			if totaldata and time.time()-begin>timeout:
 				break
-			elif time.time()-begin>timeout*2
+			elif time.time()-begin>timeout*2:
 				break
 			try:
 				data=self.sock.recv(8192)
@@ -59,6 +59,7 @@ class Tcpwrapper:
 				else:
 					time.sleep(0.1)
 			except socket.error as e:
+				self.logger.error("receive data error"+str(e))
 		return ''.join(totaldata)
 
 	def closesocket(self):
