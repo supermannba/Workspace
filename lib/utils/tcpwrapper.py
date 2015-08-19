@@ -62,6 +62,19 @@ class Tcpwrapper:
 				self.logger.error("receive data error"+str(e))
 		return ''.join(totaldata)
 
+	def serverlisten(self,time):
+		self.sock.listen(time)
+		while True:
+			conn,addr=socket.accept()
+			self.logger.info('conneted with '+addr[0]+':'+str(addr[1]))
+			data=conn.recv(1024)
+			result1=data.decode("utf-8")
+			conn.close()
+			break
+		return result1
+
+
+
 	def closesocket(self):
 		self.sock.close()
 
