@@ -179,14 +179,12 @@ class Androiddevicebt(devicebt):
 	def turnonBT(self):
 		command1='enableBT'
 		command=' '.join([dut,command1])
-		#logfile=self.creatlogfile(adbmodule.createlogpath(Test1))
 		self.executing(command,self.logfile)
 		
 
 	def turnonLE(self):
 		command1='enableLE'
 		command=' '.join([dut,command1])
-		#logfile=self.creatlogfile(adbmodule.createlogpath(Test1))
 		self.executing(command,self.logfile)
 
 	'''pairing'''

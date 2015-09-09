@@ -2,6 +2,7 @@
 
 import os
 import subprocess 
+from androiddevicebt import Androiddevicebt
 import adbmodule
 import sendcommand,subprocess
 import enums,test,time,datetime
@@ -11,7 +12,10 @@ import loggingv1,sys
 
 '''device initiliazation'''
 #devicelist=adbmodule.initialization()
-dut=adbmodule.initializedut()
+devicelist=adbmodule.adbdevice()
+dut=[]
+for device in devicelist:
+	dut.append(Androiddevicebt(deviceid=device,bt=True,btle=True,sequence=(devicelist.index(device)+1),commandfile=androiddevicebt.commandfile,objectpath=androiddevicebt.objectpath))
 test=Basetest
 time.sleep(5)
 logname=[]
