@@ -3,9 +3,7 @@
 import subprocess
 import os,re,sys
 import enums
-# from androiddevicebt import Androiddevicebt
 import androiddevicebt
-
 from subprocess import Popen,PIPE,STDOUT,check_output, CalledProcessError
 
 #to perform adb root on the windows machine
