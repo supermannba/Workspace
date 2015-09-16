@@ -52,7 +52,7 @@ class Tcpwrapper:
 			elif time.time()-begin>timeout*2:
 				break
 			try:
-				data=conn.recv(1024)
+				data=self.sock.recv(1024)
 				if data:
 					totaldata.append(data)
 					begin=time.time()
@@ -73,9 +73,25 @@ class Tcpwrapper:
 			break
 		return result1
 
+	def serverlisten1(self,time):
+		self.sock.listen(time)
+		while True:
+			conn,addr=socket.accept()
+			self.logger.info('conneted with '+addr[0]+':'+str(addr[1]))
+			if conn:
+				return conn
+			else:
+				print("no connection")
+				return None
 
 	def closesocket(self):
 		self.sock.close()
+
+
+def main():
+	pass
+
+if __name__=="__main__":main()
 
 
 

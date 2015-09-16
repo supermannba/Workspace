@@ -11,7 +11,7 @@ import enums,os
 import adbmodule,time
 import socket,sys
 
-class Androiddevicebt(devicebt):
+class Androiddevicebt2(devicebt):
     '''
     classdocs
     '''
@@ -248,7 +248,7 @@ class Androiddevicebt(devicebt):
 
 def main():
     devicelist=adbmodule.adbdevice()
-    dut1=Androiddevicebt(deviceid=devicelist[0],bt=True,btle=True,sequence=1,commandfile=commandfile,objectpath=objectpath)
+    dut1=Androiddevicebt2(deviceid=devicelist[0],bt=True,btle=True,sequence=1,commandfile=commandfile,objectpath=objectpath)
     if not os.path.isfile(commandfile):
         open(commandfle,'a')
     else:

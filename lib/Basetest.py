@@ -10,7 +10,7 @@ global enable
 enable='true'
 '''unit testing frame'''
 
-class Basetest(object):
+class Basetest:
 
 	def initialize(self,dut1=Androiddevicebt):
 		dut1.turnonBT()
