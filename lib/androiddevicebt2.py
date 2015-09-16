@@ -31,6 +31,7 @@ class Androiddevicebt2(devicebt):
     global resultfile
     global Test1
     global advaddr
+    global advname
     
     commandfile='NotifyDUT.txt'
     resultfile='NotifyBM3.txt'
@@ -47,6 +48,7 @@ class Androiddevicebt2(devicebt):
     central='central'
     enable=1
     serviceuuid='serviceuuid'
+    advname="cstadv"
 
     def __init__(self,deviceid,bt,btle,sequence,commandfile,objectpath):
         devicebt.__init__(self,os='Android',bt=True,btle=True)
@@ -57,6 +59,9 @@ class Androiddevicebt2(devicebt):
         self.commandfile=commandfile
         self.objectpath=objectpath
 
+    def createcommandfile2(self,filename):
+        if not os.isfile(filename):
+            open(filename,'w')
 
     def creatcommandfile(self,path):
         name=self.logname()
@@ -107,11 +112,20 @@ class Androiddevicebt2(devicebt):
         try:
             with open(filename,'a') as f:
                 f.write(command+'\n')
+                f.write(self.sleep(1000)+'\n')
                 f.close()
         except FileNotFoundError as e:
             print(e)
 
     '''test procedure'''
+    def startstop(self,filename):
+        command1="TestCase Start"
+        command2="TestCase End"
+        with open(filename,'r+') as f:
+            content=f.read()
+            f.seek(0,0)
+            f.write(command1.rstrip('\r\n')+'\n'+content+'\n'+command2)
+
 
     def teststart(self):
         command="TestCase Start"
@@ -132,7 +146,7 @@ class Androiddevicebt2(devicebt):
     def sleep(self,time):
         command1='common sleep'
         command=' '.join([dut,command1,str(time)])
-        self.executing(command,self.commandfile)
+        return command
 
     '''initialization'''
     def turnonBT(self):

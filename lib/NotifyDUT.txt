@@ -8,3 +8,8 @@ DUT enableBT
 DUT common sleep 1000
 DUT enableLE
 TestCase End
+TestCase Start
+DUT enableBT
+DUT common sleep 1000
+DUT enableLE
+TestCase End
