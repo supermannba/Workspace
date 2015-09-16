@@ -5,6 +5,7 @@ from devicebt import devicebt
 import sendcommand
 import enums
 import adbmodule,time
+import socket,sys
 
 
 #global commandfile
@@ -62,7 +63,7 @@ class Androiddevicebt(devicebt):
 		name=self.logname()
 		name1=path+'\\'+name
 		try:
-			file1=open(name1,'a')
+			file1=open(name1,'w')
 			file1.write('%s Started Execution\n' % Test1)
 			file1.close()
 			self.logfile=name1
@@ -102,6 +103,61 @@ class Androiddevicebt(devicebt):
 			print('could not write to the log file')
 
 
+	def establishsocket(self):
+		try:
+			s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+			print('socket created')
+			return s
+		except:
+			print('create failed, error code'+str(msg[0])+'Message: '+msg[1])
+			return None
+
+	def serverlisten(self,socket,port,time):
+		host=''
+		try:
+			socket.bind((host,port))
+		except:
+			print('bind failed, error code'+str(msg[0])+'Message: '+msg[1])
+			sys.exit()
+		socket.listen(time)
+		while True:
+			conn,addr=socket.accept()
+			print('conneted with '+addr[0]+':'+str(addr[1]))
+			data=conn.recv(1024)
+			result1=data.decode("utf-8")
+			conn.close()
+			socket.close()
+			break
+		return result1
+
+	def socketsenddata(self,socket,port,data,remotehost):
+		remoteip=socket.gethostbyname(remotehost)
+		try:
+			socket.connect((remoteip,port))
+		except socket.error:
+			print('connection error')
+			sys.exit()
+		try:
+			socket.sendall(data)
+		except socket.error:
+			print('send failed')
+			sys.exit()
+		socket.close()
+		
+	def checkdata(self,port,event,time):
+		socket1=self.establishsocket()
+		data1=self.serverlisten(socket1,port,time)
+		if event in data1:
+			return True
+		else:
+			return False
+
+	# def socketreceivedata(self,port):
+	# 	pass
+
+	def closesocket(self,socket):
+		socket.close()
+
 
 	def executing(self,command,filename):
 		sendcommand.sendcommand(command,commandfile)
@@ -115,7 +171,8 @@ class Androiddevicebt(devicebt):
 			print(result)
 		self.writetolog(command,filename,result,temp=0)
 		self.writetolog(command,tempresultfile,result,temp=1)
-		self.advaddr=t[1]
+		if t[1] is not '1':
+			self.advaddr=t[1]
 		time.sleep(1)
 
 	'''initialization'''
@@ -169,6 +226,11 @@ class Androiddevicebt(devicebt):
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
 		self.executing(command,self.logfile)
 
+	def configuremtu(self,serial,deviceaddr,datalength):
+		command1='configuremtu'
+		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,str(datalength)])
+		self.executing(command,self.logfile)
+
 	def writedescriptor(self,serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata):
 		command1='writedescriptor'
 		command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,str(UUID16bit),str(Characteristic),str(Descriptor),str(operation1),str(writedata)])
@@ -176,13 +238,13 @@ class Androiddevicebt(devicebt):
 
 	'''leserver command'''
 
-	def configurenewservicewithdatalength(self,serial,ble,deviceid,datalength):
+	def configurenewservicewithdatalength(self,serial,datalength):
 		command1='configurenewservicewithdatalength'
 		command=' '.join([dut,str(serial),ble,server,command1,str(datalength)])
 		self.executing(command,self.logfile)
 
 	'''timevalue in ms'''
-	def setnotificationinterval(self,serial,deviceid,timevalue):
+	def setnotificationinterval(self,serial,timevalue):
 		command1='setnotificationinterval'
 		command=' '.join([dut,str(serial),server,command1,str(timevalue)])
 		self.executing(command,self.logfile)

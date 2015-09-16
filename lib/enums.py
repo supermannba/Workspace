@@ -5,12 +5,15 @@ from enum import Enum
 
 
 '''file name'''
+
+
 class Filename(Enum):
 	commandfile='NotifyDUT.txt'
 	resultfile='NotifyBM3.txt'
 	notifyfile='Resultnotify.txt'
 	tempresultfile='Tempresult.txt'
 	objectpath='/data/'
+	logpath='\\Log\\Test\\'
 
 class apkinstall(Enum):
 	apkpath='C:\\CST_QSPR\\qualcomm_bin\\Android\\MRelease\\'
@@ -19,10 +22,20 @@ class apkinstall(Enum):
 
 '''networkpath'''
 class networkpath(Enum):
+	selfhost='C:\\Dropbox\\Test\\'
 	astbt11='\\\\ast-bt11\\Dropbox\\Wipower\\test\\'
-	BTTESTWS2='\\\\BT-TEST-WS2\\Dropbox\\Test'
-	WCONNECTBT39='\\\\WCONNECT-BT-39\\Dropbox\\Test'
+	BTTESTWS2='\\\\BT-TEST-WS2\\Dropbox\\Test\\'
+	WCONNECTBT39='\\\\WCONNECT-BT-39\\Dropbox\\Test\\'
 
+class Hostname(Enum):
+	Localhost='localhost'
+	WCONNECTBT39='WCONNECT-BT-39'
+	BTTESTWS2='BT-TEST-WS2'
+	supermannba='supermannba'
+
+class Tcpport(Enum):
+	port1=8888
+	port2=80
 
 '''advertising introduction'''
 class Advertisingpower(Enum):
@@ -54,9 +67,14 @@ class UUID(Enum):
 
 class UUID16bit(Enum):
 	UUID0='1200'
+	UUID1='1201'
+	UUID2='1202'
+	UUID5='1205'
 
 class Characteristic(Enum):
 	CID0='1100'
+	CID1='1115'
+
 
 class Descriptor(Enum):
 	DES0='2902'
@@ -83,5 +101,7 @@ class writedescriptor(Enum):
 	indication=4
 
 
-
+class noticeevent(Enum):
+	advertisingstart='DUT BLE peripheral startadv'
+	turnleon='DUT enableLE'
 

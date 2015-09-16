@@ -10,7 +10,7 @@ from Basetest import Basetest
 import loggingv1,sys
 
 '''device initiliazation'''
-#devicelist=adbmodule.initialization()
+devicelist=adbmodule.initialization()
 dut=adbmodule.initializedut()
 test=Basetest
 time.sleep(7)
@@ -18,7 +18,7 @@ logname=[]
 logcatname=[]
 process=[]
 testname='Test1'
-advname='cstadv11'
+advname='cstadv'
 
 logpath=adbmodule.createlogpath(testname)
 
@@ -29,19 +29,16 @@ for i in range(len(dut)):
 #	loggingv1.cleanlogcat(dut[i].deviceid)
 	time.sleep(2)
 #	process.append(loggingv1.startlogcat(dut[i].deviceid,logcatname[i]))
-<<<<<<< HEAD
 	test.initialize(dut[i])
-dut[0].configurenewservicewithdatalength(1,datalength=251)
-test.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,dut1=dut[0])
-=======
-	#test.initialize(dut[i])
 
-test.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,notify=True,remotehost='WCONNECT-BT-39',dut1=dut[0])
->>>>>>> 9cf608d1501634a37e9db666e25d24d5de038424
+number=input("please input the number of instance you want:")
+number1=int(number)
+for i in range(number1):
+	test.advertising(serial=i+1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,dut1=dut[0])
 # dut[1].scanforname(serial=1,name=advname)
 # dut[0].advaddr=dut[1].advaddr
-
-#success=sendcommand.verifyremote(enums.noticeevent.
+# peripheralPCname=enums.networkpath.BTTESTWS2.name
+# sendcommand.notifyremote(enums.Filename.notifyfile.value,host=peripheralPCname)
 
 
 # time.sleep(15)

@@ -1,9 +1,13 @@
  #!/usr/bin env python 3.4
 
-import os,signal,adbmodule,subprocess,threading,time,shutil
-from subprocess import Popen
+import os,signal,adbmodule,subprocess,time,shutil,threading
+from subprocess import Popen,PIPE
 from multiprocessing import Process
 import re,sys,logging
+from queue import Queue,Empty
+from threading import Thread
+
+
 threadLock=threading.Lock()
 thread=[]
 
@@ -37,14 +41,51 @@ def thread2(args1,stop_event):
 def cleanlogcat(deviceid):
 	string=["adb","-s",deviceid,"shell","logcat","-c"]
 	command=' '.join(string)	
+	print('cleanlogcat')
 	try: 
 		process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
 	except Exception as e:
 		print(e)
 
+
+def startlogcat1(deviceid,filename):
+	string=["adb","-s",deviceid,"shell logcat -v time"]
+	command=' '.join(string)
+	filename1=os.getcwd()+enums.Filename.logpath.value+filename
+	with open(filename1,'w') as f:
+		f.close()
+	print('startlogcat')
+	try: 
+		process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
+		q=Queue()
+		t=Thread(target=readoutput,args=(process,process.stdout,q))
+		t.start()
+		return process
+	except Exception as e:
+		print(e)
+		return None
+
+def stoplogcat(process):
+	try:
+		process.kill()
+	except Exception as e:
+		print(e)
+
+
+def readoutput(process,queue,filename):
+	while process.poll() is None:
+		output=process.stdout.readline()
+		queue.put(output)
+		output1=queue.get()
+		with open(filename,'a') as f:
+			f.write(output1.decode("utf-8") +'\n')
+			f.close()
+
+
 def startlogcat(deviceid,filename):
 	string=["adb","-s",deviceid,"shell logcat -v time | tee",filename]
 	command=' '.join(string)
+	print('startlogcat')
 	try: 
 		process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
 		return process

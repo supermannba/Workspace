@@ -1,2 +1,2 @@
-Executing 116358c4 DUT enableLE
-116358c4 DUT enableLE : PASS
+Executing 10b768bd DUT 1 ble leclient writedescriptor 51:12:2F:68:D5:92 1200 1100 2902 00 01
+10b768bd DUT 1 ble leclient writedescriptor 51:12:2F:68:D5:92 1200 1100 2902 00 01 : FAIL
