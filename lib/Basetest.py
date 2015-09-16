@@ -12,11 +12,11 @@ enable='true'
 
 class Basetest(object):
 
-	def initialize(dut1=Androiddevicebt):
+	def initialize(self,dut1=Androiddevicebt):
 		dut1.turnonBT()
 		dut1.turnonLE()
 
-	def advertising(serial,instance,advmode,advpower,connectable,timeout,name,remotehost,notify=False,UUID=enums.UUID.UUID0.value,dut1=Androiddevicebt):
+	def advertising(self,serial,instance,advmode,advpower,connectable,timeout,name,remotehost,notify=False,UUID=enums.UUID.UUID0.value,dut1=Androiddevicebt):
 		dut1.setname(serial,name)
 		dut1.startbuildadvertiser(instance)
 		dut1.advertisingwithname(serial,instance,enable)
@@ -29,7 +29,7 @@ class Basetest(object):
 		else:
 			print('advertisng instance %d finish\n' % instance)
 
-	def advertising1(serial,instance,advmode,advpower,connectable,timeout,name,remotehost,notify=False,UUID=enums.UUID.UUID0.value,dut1=Androiddevicebt):
+	def advertising1(self,serial,instance,advmode,advpower,connectable,timeout,name,remotehost,notify=False,UUID=enums.UUID.UUID0.value,dut1=Androiddevicebt):
 		dut1.setname(serial,name)
 		dut1.startbuildadvertiser(instance)
 		dut1.advertisingwithname(serial,instance,enable)
@@ -41,14 +41,14 @@ class Basetest(object):
 			s=dut1.establishsocket(enums.Tcpport.port1.value)
 			dut1.socketsenddata(s,enums.Tcpport.port1.value,data,remotehost)
 		else:
-			print('advertisng instance %d finish\n' % instance)
+			print('advertising instance %d finish\n' % instance)
 
 	def scanandconnect(serial,advname,dut1=Androiddevicebt):
 		dut1.scanforname(serial,advname)
 		deviceaddr=dut1.advaddr
 		dut1.connect(serial,deviceaddr)
 
-	def writedescriptor(serial,UUID16bit,Characteristic,Descriptor,operation1,writedata,dut1=Androiddevicebt):
+	def writedescriptor(self,serial,UUID16bit,Characteristic,Descriptor,operation1,writedata,dut1=Androiddevicebt):
 		dut1.discoverservices(serial,dut1.advaddr)
 		dut1.writedescriptor(serial,dut1.advaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata)
 		
