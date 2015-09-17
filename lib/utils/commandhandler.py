@@ -1,7 +1,7 @@
 #!/usr/bin env python 3.4
 
 
-import adbmodule,sys
+import adbwrapper,sys
 import os,time,enums
 global objectpath
 global commandfile
@@ -30,13 +30,11 @@ class commandhandler:
 			try:
 				t=subprocess.check_output(["adb","-s",device,"shell","cat",resultfile],shell=True)
 				t1=str(t)
-		
 				if command in t1:
-					
 					s=subprocess.call(["adb","-s",device,"shell","rm",resultfile],shell=True)
 					if 'PASS' in t1:	
 						if enums.stringpattern.string14.value in t1:
-							advaddr=getbtaddr(t1)
+							advaddr=self.getbtaddr(t1)
 							print("address found")
 						return True,advaddr
 					else:
@@ -48,6 +46,11 @@ class commandhandler:
 			except Exception as e:
 				return False
 				print(e) 
+
+	def readresult1(self,device,objectpath,filename,command):
+		resultfile=objectpath+filename
+		pass 
+		
 
 	def notifyremote(self,filename,host):
 		with open(enums.Filename.tempresultfile.value,'r') as f:

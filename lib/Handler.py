@@ -10,6 +10,9 @@ import shutil
 global advaddr
 advaddr='1'
 
+
+class Handler(object)
+
 def sendcommand(command,filename):
 	f=open(filename,'w')
 	f.write(command)

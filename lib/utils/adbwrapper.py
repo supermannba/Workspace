@@ -113,12 +113,12 @@ class adbwrapper:
 			os.makedirs(path)
 		return path
 
-# def initializedut():
-# 	devicelist=adbdevice()
-# 	dut=[]
-# 	for device in devicelist:
-# 		dut.append(Androiddevicebt(deviceid=device,bt=True,btle=True,sequence=(devicelist.index(device)+1),commandfile=androiddevicebt.commandfile,objectpath=androiddevicebt.objectpath))
-# 	return dut
+	# def initializedut(self):
+	# 	devicelist=self.adbdevice()
+	# 	dut=[]
+	# 	for device in devicelist:
+	# 		dut.append(Androiddevicebt2(deviceid=device,bt=True,btle=True,sequence=(devicelist.index(device)+1),commandfile=androiddevicebt.commandfile,objectpath=androiddevicebt.objectpath))
+	# 	return dut
 
 def main():
 	adbwrapper1=adbwrapper()

@@ -9,7 +9,7 @@ from devicebt import devicebt
 import sendcommand
 import enums,os
 import adbmodule,time
-import socket,sys
+import socket,sys,logging
 
 class Androiddevicebt2(devicebt):
     '''
@@ -32,6 +32,7 @@ class Androiddevicebt2(devicebt):
     global Test1
     global advaddr
     global advname
+    global datalength
     
     commandfile='NotifyDUT.txt'
     resultfile='NotifyBM3.txt'
@@ -49,6 +50,7 @@ class Androiddevicebt2(devicebt):
     enable=1
     serviceuuid='serviceuuid'
     advname="cstadv"
+    datalength=251
 
     def __init__(self,deviceid,bt,btle,sequence,commandfile,objectpath):
         devicebt.__init__(self,os='Android',bt=True,btle=True)
@@ -58,10 +60,18 @@ class Androiddevicebt2(devicebt):
         self.sequence=sequence
         self.commandfile=commandfile
         self.objectpath=objectpath
+        self.logger=logging.getLogger(__name__)
 
     def createcommandfile2(self,filename):
-        if not os.isfile(filename):
+        if not os.path.isfile(filename):
             open(filename,'w')
+            self.logger.info("new command file created")
+
+    def removecommandfile(self,filename):
+        if os.path.exists(filename):
+            os.remove(filename)
+            self.logger.info("existed command file removed")
+
 
     def creatcommandfile(self,path):
         name=self.logname()
@@ -113,9 +123,26 @@ class Androiddevicebt2(devicebt):
             with open(filename,'a') as f:
                 f.write(command+'\n')
                 f.write(self.sleep(1000)+'\n')
+                self.logger.info("current command {} is added to the command file".format(command))
                 f.close()
         except FileNotFoundError as e:
             print(e)
+
+    def executing1(self,command):
+        sendcommand.sendcommand(command,commandfile)
+        adbwrapper.adbpush(self.deviceid,commandfile,objectpath)
+        t=sendcommand.readresult(self.deviceid,self.objectpath,resultfile,command)
+        if t[0]:
+            result=self.deviceid+' '+command+' : '+'PASS'
+            print(result)
+        else:
+            result=self.deviceid+' '+command+' : '+'FAIL'
+            print(result)
+        # self.writetolog(command,filename,result,temp=0)
+        # self.writetolog(command,tempresultfile,result,temp=1)
+        if t[1] is not '1':
+            self.advaddr=t[1]
+        time.sleep(1)
 
     '''test procedure'''
     def startstop(self,filename):
@@ -124,7 +151,7 @@ class Androiddevicebt2(devicebt):
         with open(filename,'r+') as f:
             content=f.read()
             f.seek(0,0)
-            f.write(command1.rstrip('\r\n')+'\n'+content+'\n'+command2)
+            f.write(command1.rstrip('\r\n')+'\n'+content+command2)
 
 
     def teststart(self):
@@ -175,11 +202,14 @@ class Androiddevicebt2(devicebt):
     def scanforname(self,serial,name):
         command1='scanfordevicename'
         command=' '.join([dut,str(serial),ble,client,command1,name])
-        self.executing(command,self.commandfile)
-        
-            
+        self.executing(command,self.commandfile) 
 
-    def lescan(self,serial,ble,deviceaddr):
+    def scanforname1(self,serial,name):
+        command1='scanfordevicename'
+        command=' '.join([dut,str(serial),ble,client,command1,name])
+        self.executing1(command) 
+
+    def lescan(self,serial,deviceaddr):
         command1='startscan'
         command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
         self.executing(command,self.commandfile)
@@ -200,6 +230,11 @@ class Androiddevicebt2(devicebt):
         command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,str(datalength)])
         self.executing(command,self.commandfile)
 
+    def clientconnectionpriority(self,serial,priority,deviceaddr):
+        command1='setconnectionpriority'
+        command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,str(priority)])
+        self.executing(command,self.commandfile)
+
     def writedescriptor(self,serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata):
         command1='writedescriptor'
         command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,str(UUID16bit),str(Characteristic),str(Descriptor),str(operation1),str(writedata)])
@@ -211,6 +246,15 @@ class Androiddevicebt2(devicebt):
         command1='configurenewservicewithdatalength'
         command=' '.join([dut,str(serial),ble,server,command1,str(datalength)])
         self.executing(command,self.commandfile)
+
+    def setnotificationinterval(self,serial,interval):
+        command1='setnotificationinterval'
+        if interval<0 or interval>600000:
+            self.logger.error("invalid notification interval")
+            return
+        else:
+            command=' '.join([dut,str(serial),ble,server,command1,str(interval)])
+            self.executing(command,self.commandfile)
 
     '''timevalue in ms'''
     def setnotificationinterval(self,serial,timevalue):
@@ -258,18 +302,43 @@ class Androiddevicebt2(devicebt):
         command1='includedevicename'
         command=' '.join([dut,str(serial),ble,peripheral,'addadvdata',str(instance),command1,str(enable)])
         self.executing(command,self.commandfile)
+
+
         
+    '''wrapper class for complicated operation'''
+    def advertising(self,serial,instance,advmode,advpower,connectable,timeout,datalength,name,remotehost,UUID=enums.UUID.UUID0.value):
+        self.setname(serial,name)
+        self.startbuildadvertiser(instance)
+        self.advertisingwithname(serial,instance,enable)
+        self.addadvdataUUID(UUID,instance)
+        self.configurenewservicewithdatalength(serial,datalength)
+        self.setadvsetting(instance,advmode,advpower,connectable,timeout)
+        self.buildadvertiser(instance)
+        self.startadvertising(instance)
+        self.logger.info("advertising start")
+        command="advertising instance {} is started".format(instance)
+        return command 
+
+    def scanandconnect(self,serial,deviceaddr,datalength):
+        self.lescan(serial,deviceaddr)
+        self.connect(serial,deviceaddr)
+        self.configuremtu(serial,deviceaddr,datalength)
+        self.discoverservices(self,deviceaddr)
+        command="client connection is finished"
+        return command
+
+    def writedescriptor(self,serial,UUID16bit,Characteristic,Descriptor,operation1,writedata):
+        self.discoverservices(serial,deviceaddr)
+        self.writedescriptor(serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata)
 
 def main():
     devicelist=adbmodule.adbdevice()
     dut1=Androiddevicebt2(deviceid=devicelist[0],bt=True,btle=True,sequence=1,commandfile=commandfile,objectpath=objectpath)
-    if not os.path.isfile(commandfile):
-        open(commandfle,'a')
-    else:
-        dut1.teststart()
-        dut1.turnonBT()
-        dut1.sleep(1000)
-        dut1.turnonLE()
-        dut1.teststop()
-
+    dut1.removecommandfile(dut1.commandfile)
+    dut1.createcommandfile2(dut1.commandfile)
+    dut1.turnonBT()
+    dut1.turnonLE()
+    notify=dut1.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,datalength=251,name=advname,remotehost='WCONNECT-BT-39')
+    dut1.startstop(dut1.commandfile)
+    print(notify)
 if __name__=="__main__": main()

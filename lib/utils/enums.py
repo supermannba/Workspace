@@ -36,6 +36,8 @@ class Hostname(Enum):
 class Tcpport(Enum):
 	port1=80
 	port2=8888
+	port3=50000
+	port4=50001
 
 '''advertising introduction'''
 class Advertisingpower(Enum):
@@ -102,6 +104,8 @@ class writedescriptor(Enum):
 
 
 class noticeevent(Enum):
+	advertising='advertising'
 	advertisingstart='DUT BLE peripheral startadv'
 	turnleon='DUT enableLE'
+	notificaitoninterval='setnotification'
 

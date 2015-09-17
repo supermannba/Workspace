@@ -11,7 +11,6 @@ enable='true'
 '''unit testing frame'''
 
 class Basetest:
-
 	def initialize(self,dut1=Androiddevicebt):
 		dut1.turnonBT()
 		dut1.turnonLE()
