@@ -1,0 +1,202 @@
+﻿Merge branch 'master' of https://github.com/supermannba/Workspace
+
+Conflicts:
+	lib/peripheral_test.py
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Committer: supermannba <asiaynrf@BT-TEST-WS2.na.qualcomm.com>
+#
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 21 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	deleted:    lib/10b768bd_DUT1_logcat.txt
+#	new file:   lib/Attenuation/Aeroflexattenuator.py
+#	new file:   lib/Attenuation/Attenuator.py
+#	renamed:    lib/NotifyBM3.txt/kernel-tests/cacheflush -> lib/Attenuation/__init__.py
+#	new file:   lib/Attenuation/__pycache__/Aeroflexattenuator.cpython-34.pyc
+#	new file:   lib/Attenuation/__pycache__/Attenuator.cpython-34.pyc
+#	new file:   lib/Attenuation/__pycache__/__init__.cpython-34.pyc
+#	new file:   lib/Attenuation/__pycache__/comdevice.cpython-34.pyc
+#	new file:   lib/Attenuation/__pycache__/gui.cpython-34.pyc
+#	new file:   lib/Attenuation/comdevice.py
+#	new file:   lib/Attenuation/serialport.py
+#	new file:   lib/Attenuation/tes1.py
+#	new file:   lib/Attenuation/test.py
+#	deleted:    lib/Base.py
+#	modified:   lib/Basetest.py
+#	deleted:    lib/Class1.py
+#	new file:   lib/Interview_v1.py
+#	new file:   lib/Interview_v2.py
+#	deleted:    lib/Log/Test1/10b768bd_DUT1_execution.txt
+#	deleted:    lib/Log/Test1/116358c4_DUT1_execution.txt
+#	deleted:    lib/Log/Test1/d3b06764_DUT2_execution.txt
+#	deleted:    lib/NotifyBM3.txt/display-tests/fbtest_lua
+#	deleted:    lib/NotifyBM3.txt/display-tests/lua-wrappers/framebuffer_wrapper.lua
+#	deleted:    lib/NotifyBM3.txt/display-tests/lua-wrappers/object_wrapper.lua
+#	deleted:    lib/NotifyBM3.txt/display-tests/test-sfclientlua
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/abnormal_reset/abnormal_reset_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/bus-timeout/bus_timeout_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/cacheflush.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/clk_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/clocksourcetest.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/README.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/byte-cntr/byte_cntr.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/cs_adversary.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/cs_common.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/cs_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/cti/cti_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/etm/etm_disable.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/etm/etm_enable.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/mult_trace/mult_source_disable.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/mult_trace/mult_source_enable.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/platform/platform.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/profile/cs_profile.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/run.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/sink_switch/etr_modes.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/sink_switch/sinkswitch.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/stm/stm_disable.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/stm/stm_enable.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/stm/stm_etf_dump.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/core/stm/stm_etr_dump.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/stm-trace-marker/run.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/coresight/stm-trace-marker/stm_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/cpufreq_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/cpuhotplug_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/cputest.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/fbtest
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/fbtest.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/geoinfo_flash
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/gpio_lib.conf
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/gpio_lib.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/gpio_tlmm.conf
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/gpio_tlmm.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/hrtimer_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/i2c-msm-test
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/i2c-msm-test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/iontest.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/ipc_logging_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/ipi_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/irq_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/ldrex_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/loop.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memfeast
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/README.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/1MB-10MB.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/4KB-1MB.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/alloc_pages.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/builtin.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/cp_heap.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/general.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/iommu_attach.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/iommu_detach.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/iommu_map.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/one_1GB_buffer_from_system.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/pil1_heap.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/qseecom_heap.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/simple.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/system.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/tons-of-clients.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/memory_prof_data/alloc_profiles/user_alloc.txt
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/mpp_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/msm_dma
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/msm_dma.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/msm_iontest
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/msm_uart_test
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/msm_uart_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/msm_watchdog_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/mtd_driver_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/mtd_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/mtd_yaffs2_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/ocmem_test
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/ocmem_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/postproc_cfg/AR_LUT_1_0_B
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/postproc_cfg/AR_LUT_1_0_B0
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/postproc_cfg/AR_LUT_1_0_G
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/postproc_cfg/AR_LUT_1_0_G0
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/postproc_cfg/AR_LUT_1_0_R0
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/postproc_cfg/SanityCfg.cfg
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/postproc_cfg/r_only_igc
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/probe_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/rotator
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/rtc_test
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/sd_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/socinfotest.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/spidevtest
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/spidevtest.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/spiethernettest.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/spinlock_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/swp_test
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/swp_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/test_env_setup.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/timertest.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/uarttest.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/vfp.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/vfptest
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/vreg_test.sh
+#	deleted:    lib/NotifyBM3.txt/kernel-tests/yv12_qcif.yuv
+#	deleted:    lib/NotifyBM3_old.txt
+#	modified:   lib/NotifyDUT.txt
+#	modified:   lib/Resultnotify.txt
+#	modified:   lib/Tempresult.txt
+#	deleted:    lib/__init__.py
+#	deleted:    lib/__pycache__/Base.cpython-34.pyc
+#	modified:   lib/__pycache__/Basetest.cpython-34.pyc
+#	deleted:    lib/__pycache__/Class1.cpython-34.pyc
+#	modified:   lib/__pycache__/adbmodule.cpython-34.pyc
+#	modified:   lib/__pycache__/androiddevicebt.cpython-34.pyc
+#	modified:   lib/__pycache__/device.cpython-34.pyc
+#	modified:   lib/__pycache__/devicebt.cpython-34.pyc
+#	modified:   lib/__pycache__/enums.cpython-34.pyc
+#	modified:   lib/__pycache__/loggingv1.cpython-34.pyc
+#	modified:   lib/__pycache__/sendcommand.cpython-34.pyc
+#	modified:   lib/__pycache__/test.cpython-34.pyc
+#	modified:   lib/adbmodule.py
+#	new file:   lib/adbmodule.pyc
+#	new file:   lib/advertising_test.py
+#	modified:   lib/androiddevicebt.py
+#	modified:   lib/central_test.py
+#	deleted:    lib/communication.py
+#	deleted:    lib/device.py
+#	deleted:    lib/devicebt.py
+#	modified:   lib/enums.py
+#	new file:   lib/enums.pyc
+#	deleted:    lib/example.py
+#	deleted:    lib/leetcode.py
+#	deleted:    lib/leetcode1.py
+#	modified:   lib/loggingv1.py
+#	modified:   lib/peripheral_test.py
+#	modified:   lib/sendcommand.py
+#	new file:   lib/tcpunittest.py
+#	new file:   lib/tcpunittest_server.py
+#	deleted:    lib/test.py
+#	new file:   lib/test1.py
+#	new file:   lib/test2.py
+#	deleted:    lib/testcommand.py
+#	new file:   lib/utils/__init__.py
+#	new file:   lib/utils/__pycache__/__init__.cpython-34.pyc
+#	new file:   lib/utils/__pycache__/tcpwrapper.cpython-34.pyc
+#	new file:   lib/utils/serialportwrapper.py
+#	new file:   lib/utils/tcpwrapper.py
+#
+# Untracked files:
+#	lib/tcpunittest_server2.py
+#	lib/utils/__init__.pyc
+#	lib/utils/enums.py
+#	lib/utils/tcpwrapper.pyc
+#
+
