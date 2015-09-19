@@ -2,8 +2,8 @@
 
 import os
 import subprocess 
-import adbmodule
-import sendcommand,subprocess
+import utils.adbwrapper
+import subprocess
 import enums,test,time,datetime
 import androiddevicebt2
 from Basetest import Basetest

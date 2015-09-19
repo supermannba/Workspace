@@ -430,7 +430,7 @@ class Androiddevicebt2(devicebt):
                 else:
                     return False
         elif mode==2:
-             if len(result)<=0:
+            if len(result)<=0:
                 return False
             else:
                 for line in result:
