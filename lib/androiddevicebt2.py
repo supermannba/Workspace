@@ -350,7 +350,7 @@ class Androiddevicebt2(devicebt):
 
         
     '''wrapper class for complicated operation'''
-    def advertising(self,serial,instance,advmode,advpower,connectable,timeout,datalength,name,remotehost,UUID=enums.UUID.UUID0.value):
+    def advertising(self,serial,instance,advmode,advpower,connectable,timeout,name,remotehost,datalength=251,UUID=enums.UUID.UUID0.value):
         self.setname(serial,name)
         self.startbuildadvertiser(instance)
         self.advertisingwithname(serial,instance,enable)
@@ -359,6 +359,7 @@ class Androiddevicebt2(devicebt):
         self.setadvsetting(instance,advmode,advpower,connectable,timeout)
         self.buildadvertiser(instance)
         self.startadvertising(instance)
+        self.startstop(self.commandfile)
         self.logger.info("advertising start")
         command="advertising instance {} is started".format(instance)
         return command 
@@ -368,6 +369,7 @@ class Androiddevicebt2(devicebt):
         self.connect(serial,deviceaddr)
         self.configuremtu(serial,deviceaddr,datalength)
         self.discoverservices(self,deviceaddr)
+        self.startstop(self.commandfile)
         self.logger.info("connection to remote device")
         command="client connection is finished"
         return command
@@ -375,12 +377,13 @@ class Androiddevicebt2(devicebt):
     def writedescriptor(self,serial,UUID16bit,Characteristic,Descriptor,operation1,writedata):
         self.discoverservices(serial,deviceaddr)
         self.writedescriptor(serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata)
+        self.startstop(self.commandfile)
         self.logger.info("try to enable notification")
 
 
     def verifycommands(self,objectpath,commandfile,objectfile):
         resultfile=objectpath+objectfile;
-        with open(commanfile,'r') as file1:
+        with open(commandfile,'r') as file1:
             firstline=file1.readline()
             result=[]
             if firstline!="TestCase Start":

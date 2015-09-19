@@ -9,21 +9,15 @@ class IPaddress(Enum):
 	Localhost='127.0.0.1'
 
 class Tcpwrapper:
-<<<<<<< HEAD
-	def __init__(self,sock=None):
-		if sock is None:
-			self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-		else:
-			self.sock=sock
-		self.logger=logging.getLogger(__name__)
-=======
+
+
 	def __init__(self):
 		self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
 		self.logger=logging.getLogger(__name__)
 
 	# def opensocket(self):
 	# 	self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
->>>>>>> origin/master
+
 
 	def connect(self,host,port):
 		try:
@@ -69,11 +63,7 @@ class Tcpwrapper:
 			elif time.time()-begin>timeout*2:
 				break
 			try:
-<<<<<<< HEAD
-				data=conn.recv(1024)
-=======
 				data=self.sock.recv(1024)
->>>>>>> origin/master
 				if data:
 					totaldata.append(data.decode("utf-8"))
 					begin=time.time()
