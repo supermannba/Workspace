@@ -10,6 +10,7 @@ import sendcommand
 import enums,os
 import adbmodule,time
 import socket,sys,logging
+import subprocess
 
 class Androiddevicebt2(devicebt):
     '''
@@ -86,6 +87,8 @@ class Androiddevicebt2(devicebt):
             print('could not generate log file')
             sys.exit(0)
 
+
+
     def createtemplog(self):
         name=tempresultfile
         try:
@@ -118,6 +121,15 @@ class Androiddevicebt2(devicebt):
 
 
     #executing
+    def onecommmand(self,command,filename):
+        try:
+            with open(filename,'w') as f:
+                f.write(command+'\n')
+                f.close()
+        except FileNotFoundError as e:
+            self.logger.error("command file NotifyBM3.txt not found")
+            print(e)
+
     def executing(self,command,filename):
         try:
             with open(filename,'a') as f:
@@ -128,21 +140,43 @@ class Androiddevicebt2(devicebt):
         except FileNotFoundError as e:
             print(e)
 
-    def executing1(self,command):
-        sendcommand.sendcommand(command,commandfile)
-        adbwrapper.adbpush(self.deviceid,commandfile,objectpath)
-        t=sendcommand.readresult(self.deviceid,self.objectpath,resultfile,command)
+    def executing1(self,command,addrflag=0):
+        self.removecommandfile(self.commandfile)
+        self.createcommandfile2(self.commandfile)
+        self.onecommmand(command,self.commandfile)
+        adbwrapper.adbpush(self.deviceid,self.commandfile,self.objectpath)
+        result=self.verifycommands(self.objectpath,self.commandfile,objectfile)
         if t[0]:
-            result=self.deviceid+' '+command+' : '+'PASS'
-            print(result)
+            self.logger.info("Command executing pass")
         else:
-            result=self.deviceid+' '+command+' : '+'FAIL'
-            print(result)
-        # self.writetolog(command,filename,result,temp=0)
-        # self.writetolog(command,tempresultfile,result,temp=1)
-        if t[1] is not '1':
-            self.advaddr=t[1]
-        time.sleep(1)
+            self.logger.info("Command executing fail")
+        if addrlfag==1:
+            addr=self.getadvtiseraddres()
+            if addr!=-1:
+                self.remoteaddr=addr
+                return True;
+            else:
+                return False
+        else:
+            for line in result[1]:
+                if 'PASS' in line:
+                    return True
+                else:
+                    return False
+        # sendcommand.sendcommand(command,commandfile)
+        # adbwrapper.adbpush(self.deviceid,commandfile,objectpath)
+        # t=sendcommand.readresult(self.deviceid,self.objectpath,resultfile,command)
+        # if t[0]:
+        #     result=self.deviceid+' '+command+' : '+'PASS'
+        #     print(result)
+        # else:
+        #     result=self.deviceid+' '+command+' : '+'FAIL'
+        #     print(result)
+        # # self.writetolog(command,filename,result,temp=0)
+        # # self.writetolog(command,tempresultfile,result,temp=1)
+        # if t[1] is not '1':
+        #     self.advaddr=t[1]
+        # time.sleep(1)
 
     '''test procedure'''
     def startstop(self,filename):
@@ -207,7 +241,12 @@ class Androiddevicebt2(devicebt):
     def scanforname1(self,serial,name):
         command1='scanfordevicename'
         command=' '.join([dut,str(serial),ble,client,command1,name])
-        self.executing1(command) 
+        if self.executing1(command):
+            return True
+        else:
+            return False 
+
+
 
     def lescan(self,serial,deviceaddr):
         command1='startscan'
@@ -261,6 +300,11 @@ class Androiddevicebt2(devicebt):
         command1='setnotificationinterval'
         command=' '.join([dut,str(serial),server,command1,str(timevalue)])
         self.executing(command,self.commandfile)
+
+    def setnotificationinterval1(self,serial,timevalue):
+        command1='setnotificationinterval'
+        command=' '.join([dut,str(serial),server,command1,str(timevalue)])
+        self.executing1(command,self.commandfile)
 
     '''advertising'''
     def startbuildadvertiser(self,instance):
@@ -324,21 +368,100 @@ class Androiddevicebt2(devicebt):
         self.connect(serial,deviceaddr)
         self.configuremtu(serial,deviceaddr,datalength)
         self.discoverservices(self,deviceaddr)
+        self.logger.info("connection to remote device")
         command="client connection is finished"
         return command
 
     def writedescriptor(self,serial,UUID16bit,Characteristic,Descriptor,operation1,writedata):
         self.discoverservices(serial,deviceaddr)
         self.writedescriptor(serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata)
+        self.logger.info("try to enable notification")
+
+
+    def verifycommands(self,objectpath,commandfile,objectfile):
+        resultfile=objectpath+objectfile;
+        with open(commanfile,'r') as file1:
+            firstline=file1.readline()
+            result=[]
+            if firstline!="TestCase Start":
+                while True:
+                    try:
+                        outputline=subprocess.check_output(["adb","-s",device,"shell","cat",resultfile],shell=True)
+                        outputline1=str(outputline.decode('utf-8'))
+                        if 'PASS' in outputline1 or 'FAIL' in outputline1:
+                            s=subprocess.call(["adb","-s",device,"shell","rm",resultfile],shell=True)
+                            result.append(outputline1)
+                            return True,result
+                        else:
+                            return False,result
+                    except Exception as e:
+                        return False
+                        self.logger.info("single command running failure "+e)
+            else:
+                while True:
+                    try:
+                        outputline=subprocess.check_output(["adb","-s",device,"shell","cat",resultfile],shell=True)
+                        outputline1=str(outputline.decode('utf-8'))
+                        outputresult=outputline1.split('\\r\\r\\n')
+                        result=[]
+                        for line in outputresult:
+                            if 'PASS' in line or 'FAIL' in line:
+                                if 'common sleep' not in line:
+                                    result.append(line);
+                        return True,result
+                    except Exception as e:
+                        return False
+                        self.logger.error("without usb command result reading failure "+e)
+
+    def verifycommandpass(self,result,mode=1,command=None):
+        countpass=0
+        countfail=0
+        if mode==1:
+            if len(result)<=0:
+                return False
+            else:
+                for line in result:
+                    if 'PASS' in line:
+                        countpass+=1
+                    else:
+                        countfail+=1
+                if len(result)==countpass:
+                    return True
+                else:
+                    return False
+        elif mode==2:
+             if len(result)<=0:
+                return False
+            else:
+                for line in result:
+                    if 'PASS' in line and command in line:
+                        return True;
+                return False;
+
+
+
+
+    def getadvtiseraddress(self,result):
+        for line in result:
+            if utils.enums.stringpattern.string14 in line:
+                index1=line.index(enums.stringpattern.string14.value)
+                index2=index1+len(enums.stringpattern.string14.value)
+                return line[index2:index2+17]
+        return -1
+
+
+    
 
 def main():
-    devicelist=adbmodule.adbdevice()
-    dut1=Androiddevicebt2(deviceid=devicelist[0],bt=True,btle=True,sequence=1,commandfile=commandfile,objectpath=objectpath)
-    dut1.removecommandfile(dut1.commandfile)
-    dut1.createcommandfile2(dut1.commandfile)
-    dut1.turnonBT()
-    dut1.turnonLE()
-    notify=dut1.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,datalength=251,name=advname,remotehost='WCONNECT-BT-39')
-    dut1.startstop(dut1.commandfile)
-    print(notify)
+    # devicelist=adbmodule.adbdevice()s
+    # dut1=Androiddevicebt2(deviceid=devicelist[0],bt=True,btle=True,sequence=1,commandfile=commandfile,objectpath=objectpath)
+    # dut1.removecommandfile(dut1.commandfile)
+    # dut1.createcommandfile2(dut1.commandfile)
+    # dut1.turnonBT()
+    # dut1.turnonLE()
+    # notify=dut1.advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,datalength=251,name=advname,remotehost='WCONNECT-BT-39')
+    # dut1.startstop(dut1.commandfile)
+    # print(notify)
+    pass
+
 if __name__=="__main__": main()

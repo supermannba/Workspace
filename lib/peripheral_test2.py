@@ -23,6 +23,14 @@ for device in devicelist:
 # advname='cstadv'
 dut[0].advertising(serial=1,instance=1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,name=advname,notify=True,remotehost='WCONNECT-BT-39')
 adbwrapper1.adbpush(dut[0].deviceid,dut[0].commandfile,androiddevicebt2.objectpath)
+result=dut[0].verifycommands(androiddevicebt2.objectpath,androiddevicebt2.commandfile,androiddevicebt2.resultfile)
+if(dut[0].verifycommandpass(result[1])):
+	tcpwrapper1.senddata(utils.enums.noticeevent.advertising)
+
+
+
+
+
 
 
 

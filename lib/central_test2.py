@@ -22,9 +22,9 @@ for device in devicelist:
 
 
 tcpwrapper1.serverreceive(1,enums.noticeevent.advertising.value,'',enums.Tcpport.port3.value)
-dut[0].scanforname1(1,androiddevicebt2.advname)
-dut[0].createcommandfile2(dut[0].commandfile)
-command1=dut[0].scanandconnect(1,dut[0].addr,androiddevicebt2.datalength)
-tcpwrapper1.serverreceive(1,enums.noticeevent.notificaitoninterval.value,'',enums.Tcpport.port4.value)
+if(dut[0].scanforname1(1,androiddevicebt2.advname)):
+	dut[0].createcommandfile2(dut[0].commandfile)
+	command1=dut[0].scanandconnect(1,dut[0].remoteaddr,androiddevicebt2.datalength)
+tcpwrapper1.sendverify(utils.enums.BTTESTWS2.value,enums.noticeevent.notificaitoninterval.value,enums.Tcpport.port4.value)
 dut[0].writedescriptor(1,enums.UUID16bit.UUID0.value,enums.Characteristic.CID0.value,enums.Descriptor.DES0.value,enums.readwriteoperation.operationwrite.value,writedata=enums.writedata.notification.value)
 
