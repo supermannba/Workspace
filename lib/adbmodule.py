@@ -3,9 +3,7 @@
 import subprocess
 import os,re,sys
 import enums
-from androiddevicebt import Androiddevicebt
 import androiddevicebt
-
 from subprocess import Popen,PIPE,STDOUT,check_output, CalledProcessError
 
 #to perform adb root on the windows machine
@@ -95,14 +93,15 @@ def createlogpath(test):
 	path2='\\Log\\'
 	path3=test
 	path=path1+path2+path3
+	print(path)
 	if not os.path.exists(path):
-		os.mkdir(path)
+		os.makedirs(path)
 	return path
 
-def initializedut():
-	devicelist=adbdevice()
-	dut=[]
-	for device in devicelist:
-		dut.append(Androiddevicebt(deviceid=device,bt=True,btle=True,sequence=(devicelist.index(device)+1),commandfile=androiddevicebt.commandfile,objectpath=androiddevicebt.objectpath))
-	return dut
+# def initializedut():
+# 	devicelist=adbdevice()
+# 	dut=[]
+# 	for device in devicelist:
+# 		dut.append(Androiddevicebt(deviceid=device,bt=True,btle=True,sequence=(devicelist.index(device)+1),commandfile=androiddevicebt.commandfile,objectpath=androiddevicebt.objectpath))
+# 	return dut
 

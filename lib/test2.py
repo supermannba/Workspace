@@ -23,7 +23,6 @@ def readoutput(process,out,queue):
 p=subprocess.Popen(command,stdout=PIPE,shell=True)
 q=Queue()
 t=Thread(target=readoutput,args=(p,p.stdout,q))
-#t.daemon=True
 t.start()
 
 

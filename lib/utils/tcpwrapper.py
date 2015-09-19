@@ -9,16 +9,35 @@ class IPaddress(Enum):
 	Localhost='127.0.0.1'
 
 class Tcpwrapper:
+<<<<<<< HEAD
 	def __init__(self,sock=None):
 		if sock is None:
 			self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 		else:
 			self.sock=sock
 		self.logger=logging.getLogger(__name__)
+=======
+	def __init__(self):
+		self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
+		self.logger=logging.getLogger(__name__)
+
+	# def opensocket(self):
+	# 	self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
+>>>>>>> origin/master
 
 	def connect(self,host,port):
 		try:
 			self.sock.connect((host,port))
+			self.logger.info("connected to the TCP port")
+		except socket.error as e1:
+			self.logger.error("could not connect to tcp port"+str(e1))
+			exit()
+
+
+	def connect1(self,hostname,port):
+		try:
+			remoteip=socket.gethostbyname(hostname)
+			self.sock.connect((remoteip,port))
 			self.logger.info("connected to the TCP port")
 		except socket.error as e1:
 			self.logger.error("could not connect to tcp port"+str(e1))
@@ -50,7 +69,11 @@ class Tcpwrapper:
 			elif time.time()-begin>timeout*2:
 				break
 			try:
+<<<<<<< HEAD
 				data=conn.recv(1024)
+=======
+				data=self.sock.recv(1024)
+>>>>>>> origin/master
 				if data:
 					totaldata.append(data.decode("utf-8"))
 					begin=time.time()
@@ -86,10 +109,55 @@ class Tcpwrapper:
 		
 		
 
-
+	def serverlisten1(self,time):
+		self.sock.listen(time)
+		while True:
+			conn,addr=self.sock.accept()
+			self.logger.info('conneted with '+addr[0]+':'+str(addr[1]))
+			data=conn.recv(1024)
+			if data:
+				result1=data.decode('utf-8')
+				return result1
+				break
+		conn.close()
+		
 
 	def closesocket(self):
 		self.sock.close()
+
+
+	def serverreceive(self,time,command,host,port):
+		try:
+			self.bind(host,port)
+			data=self.serverlisten1(time)
+			if command in data:
+				return
+			else:
+				self.logger.info("desired message not found")	
+		except Exception as e:
+			self.logger.error("cound not verify the info "+e)
+
+	def sendverify(self,hostname,command,port):
+		try:
+			self.connect1(hostname,port)
+			self.senddata(command)
+			while True:
+				data=self.sock.recv(100)
+				result=data.decode('utf-8')
+				if result=='received':
+					break
+		except socket.error as e:
+			self.logger.error("error in sending command "+e)
+
+def main():
+	import socket
+	tcpwrapper1=Tcpwrapper()
+	host=''
+	port=50002
+	command='advertising'
+	tcpwrapper1.serverreceive(1,command,host,port)
+
+if __name__=="__main__":main()
 
 
 

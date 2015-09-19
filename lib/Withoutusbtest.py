@@ -10,7 +10,8 @@ global enable
 enable='true'
 '''unit testing frame'''
 
-class Basetest:
+class withoutusbtest(object):
+
 	def initialize(self,dut1=Androiddevicebt):
 		dut1.turnonBT()
 		dut1.turnonLE()

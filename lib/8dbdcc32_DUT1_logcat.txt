@@ -1,0 +1,7 @@
+--------- beginning of main
+01-05 23:53:42.709 W/hvdcp_opti(19014): type=1400 audit(0.0:193968): avc: denied { write } for name="/" dev="tmpfs" ino=15384 scontext=u:r:charger_monitor:s0 tcontext=u:object_r:device:s0 tclass=dir permissive=0
+01-04 21:43:45.214 W/XTCC-5.1.0.1a(  670): [CS-RIL-LISTENER] timerCallback fired for ril update registering, re-register
+01-05 23:53:47.759 W/init    (19027): type=1400 audit(0.0:193969): avc: denied { execute_no_trans } for path="/system/vendor/bin/qseeproxydaemon" dev="mmcblk0p18" ino=3163 scontext=u:r:init:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=0
+01-05 23:53:47.809 W/hvdcp_opti(19028): type=1400 audit(0.0:193970): avc: denied { setgid } for capability=6 scontext=u:r:charger_monitor:s0 tcontext=u:r:charger_monitor:s0 tclass=capability permissive=0
+01-05 23:53:47.819 W/hvdcp_opti(19028): type=1400 audit(0.0:193971): avc: denied { write } for name="kmsg" dev="tmpfs" ino=15251 scontext=u:r:charger_monitor:s0 tcontext=u:object_r:kmsg_device:s0 tclass=chr_file permissive=0
+01-05 23:53:47.819 W/hvdcp_opti(19028): type=1400 audit(0.0:193972): avc: denied { write } for name="/" dev="tmpfs" ino=15384 scontext=u:r:charger_monitor:s0 tcontext=u:object_r:device:s0 tclass=dir permissive=0
