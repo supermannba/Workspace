@@ -350,6 +350,11 @@ class Androiddevicebt2(devicebt):
 
         
     '''wrapper class for complicated operation'''
+
+    def turnonBTLE(self):
+        self.turnonBT()
+        self.turnonLE()
+
     def advertising(self,serial,instance,advmode,advpower,connectable,timeout,name,remotehost,datalength=251,UUID=enums.UUID.UUID0.value):
         self.setname(serial,name)
         self.startbuildadvertiser(instance)
@@ -359,7 +364,6 @@ class Androiddevicebt2(devicebt):
         self.setadvsetting(instance,advmode,advpower,connectable,timeout)
         self.buildadvertiser(instance)
         self.startadvertising(instance)
-        self.startstop(self.commandfile)
         self.logger.info("advertising start")
         command="advertising instance {} is started".format(instance)
         return command 
@@ -369,7 +373,6 @@ class Androiddevicebt2(devicebt):
         self.connect(serial,deviceaddr)
         self.configuremtu(serial,deviceaddr,datalength)
         self.discoverservices(self,deviceaddr)
-        self.startstop(self.commandfile)
         self.logger.info("connection to remote device")
         command="client connection is finished"
         return command
@@ -377,7 +380,6 @@ class Androiddevicebt2(devicebt):
     def writedescriptor(self,serial,UUID16bit,Characteristic,Descriptor,operation1,writedata):
         self.discoverservices(serial,deviceaddr)
         self.writedescriptor(serial,deviceaddr,UUID16bit,Characteristic,Descriptor,operation1,writedata)
-        self.startstop(self.commandfile)
         self.logger.info("try to enable notification")
 
 
