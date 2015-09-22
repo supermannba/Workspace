@@ -34,15 +34,12 @@ class Hostname(Enum):
 	supermannba='supermannba'
 
 class Tcpport(Enum):
-<<<<<<< HEAD
-	port1=8888
-	port2=80
-=======
+
 	port1=80
 	port2=8888
 	port3=50000
 	port4=50001
->>>>>>> origin/master
+
 
 '''advertising introduction'''
 class Advertisingpower(Enum):
@@ -109,13 +106,10 @@ class writedescriptor(Enum):
 
 
 class noticeevent(Enum):
-<<<<<<< HEAD
-	advertisingstart='DUT BLE peripheral startadv'
-	turnleon='DUT enableLE'
-=======
+
 	advertising='advertising'
 	advertisingstart='DUT BLE peripheral startadv'
 	turnleon='DUT enableLE'
 	notificaitoninterval='setnotification'
->>>>>>> origin/master
+
 

@@ -3,14 +3,16 @@
 import os
 import subprocess 
 import sys
-
-sys.path.insert('C:\\Users\\asiaynrf\\Documents\\GitHub\\Workspace\\lib')
-import lib.utils.tcpwrapper
+sys.path.insert(0,'C:\\Users\\asiaynrf\\Documents\\GitHub\\Workspace\\lib')
+import utils.tcpwrapper
 import utils.adbwrapper
+from utils.adbwrapper import adbwrapper
+from utils.tcpwrapper import Tcpwrapper
+from androiddevicebt2 import Androiddevicebt2
 import subprocess
-import enums,test,time,datetime
+import enums
+import test,time,datetime
 import androiddevicebt2
-from Basetest import Basetest
 import loggingv1,sys
 
 '''device initiliazation'''

@@ -9,11 +9,6 @@ class IPaddress(Enum):
 	Localhost='127.0.0.1'
 
 class Tcpwrapper:
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> 7246494f953a06d0adb9e688ca7bea86b38d4dac
 
 	def __init__(self):
 		self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
@@ -68,10 +63,6 @@ class Tcpwrapper:
 				break
 			try:
 				data=self.sock.recv(1024)
-<<<<<<< HEAD
-
-=======
->>>>>>> 7246494f953a06d0adb9e688ca7bea86b38d4dac
 				if data:
 					totaldata.append(data.decode("utf-8"))
 					begin=time.time()
