@@ -352,22 +352,21 @@ class Androiddevicebt2(devicebt):
 
         
     '''wrapper class for complicated operation'''
-<<<<<<< HEAD
+
     def initialize(self,commanfile):
         self.removecommandfile(commandfile)
         self.createcommandfile2(commandfile)
         self.turnonBT()
         self.turnonLE()
 
-    def advertising(self,serial,instance,advmode,advpower,connectable,timeout,datalength,name,remotehost,UUID=enums.UUID.UUID0.value):
-=======
+ 
 
     def turnonBTLE(self):
         self.turnonBT()
         self.turnonLE()
 
     def advertising(self,serial,instance,advmode,advpower,connectable,timeout,name,remotehost,datalength=251,UUID=enums.UUID.UUID0.value):
->>>>>>> 7246494f953a06d0adb9e688ca7bea86b38d4dac
+
         self.setname(serial,name)
         self.startbuildadvertiser(instance)
         self.advertisingwithname(serial,instance,enable)
