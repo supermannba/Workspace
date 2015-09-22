@@ -1,7 +1,7 @@
  #!/usr/bin env python 3.4
 
 import subprocess
-import os,re,sys
+import os,re,sys,time
 import enums
 # import androiddevicebt
 import logging
@@ -51,6 +51,8 @@ class adbwrapper:
 			t=e.returncode, e.message
 
 	def adbremount(self,device):
+		self.adbroot(device)
+		self.adbwaitfordevice()
 		try:
 			t=subprocess.call(["adb","-s",device,"remount"],shell=True)
 		except CalledProcessError as e:
@@ -59,6 +61,7 @@ class adbwrapper:
 
 
 	def adbpush(self,device,filename,objectpath):
+		self.adbremount(device)
 		try:
 			t=subprocess.call(["adb","-s",device,"push",filename,objectpath],shell=True)
 		except CalledProcessError as e:
@@ -100,6 +103,7 @@ class adbwrapper:
 			self.adbremove(device,enums.Filename.resultfile.value,enums.Filename.objectpath.value)
 			self.installapk(device,enums.apkinstall.apkname.value,enums.apkinstall.apkpath.value)
 			subprocess.call(["adb","-s",device,"shell","am","start","-n",enums.apkinstall.apkintent.value])
+			time.sleep(5)
 		return devicelist
 
 

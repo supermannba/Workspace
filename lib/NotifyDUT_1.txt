@@ -1,0 +1,22 @@
+TestCase Start
+DUT enableBT
+DUT common sleep 1000
+DUT enableLE
+DUT common sleep 1000
+DUT 1 BT setname cstadv
+DUT common sleep 1000
+DUT BLE peripheral startbuildingnewadv 1
+DUT common sleep 1000
+DUT BLE peripheral addadvdata 1 serviceuuid 0000110D-0000-1000-8000-00805F9B34FB
+DUT common sleep 1000
+DUT 1 ble leserver configurenewservicewithdatalength 251
+DUT common sleep 1000
+DUT BLE peripheral setadvsettings 1 2 3 0 true
+DUT common sleep 1000
+DUT 1 ble peripheral addadvdata 1 includedevicename true
+DUT common sleep 1000
+DUT BLE peripheral buildadv 1
+DUT common sleep 1000
+DUT BLE peripheral startadv 1
+DUT common sleep 1000
+TestCase End

@@ -30,6 +30,7 @@ class Androiddevicebt2(devicebt):
     global commandfile
     global tempresultfile
     global resultfile
+    global outputfile
     global Test1
     global advaddr
     global advname
@@ -38,6 +39,7 @@ class Androiddevicebt2(devicebt):
     commandfile='NotifyDUT.txt'
     resultfile='NotifyBM3.txt'
     tempresultfile='Tempresult.txt'
+    outputfile='result.txt'
     objectpath='/data/'
     Test1='Test1'
     dut='DUT'
@@ -48,7 +50,7 @@ class Androiddevicebt2(devicebt):
     server='leserver'
     peripheral='peripheral'
     central='central'
-    enable=1
+    enable='true'
     serviceuuid='serviceuuid'
     advname="cstadv"
     datalength=251
@@ -146,7 +148,7 @@ class Androiddevicebt2(devicebt):
         self.onecommmand(command,self.commandfile)
         adbwrapper.adbpush(self.deviceid,self.commandfile,self.objectpath)
         result=self.verifycommands(self.objectpath,self.commandfile,objectfile)
-        if t[0]:
+        if result:
             self.logger.info("Command executing pass")
         else:
             self.logger.info("Command executing fail")
@@ -344,12 +346,18 @@ class Androiddevicebt2(devicebt):
 
     def advertisingwithname(self,serial,instance,enable):
         command1='includedevicename'
-        command=' '.join([dut,str(serial),ble,peripheral,'addadvdata',str(instance),command1,str(enable)])
+        command=' '.join([dut,str(serial),ble,peripheral,'addadvdata',str(instance),command1,enable])
         self.executing(command,self.commandfile)
 
 
         
     '''wrapper class for complicated operation'''
+    def initialize(self,commanfile):
+        self.removecommandfile(commandfile)
+        self.createcommandfile2(commandfile)
+        self.turnonBT()
+        self.turnonLE()
+
     def advertising(self,serial,instance,advmode,advpower,connectable,timeout,datalength,name,remotehost,UUID=enums.UUID.UUID0.value):
         self.setname(serial,name)
         self.startbuildadvertiser(instance)
@@ -378,12 +386,19 @@ class Androiddevicebt2(devicebt):
         self.logger.info("try to enable notification")
 
 
-    def verifycommands(self,objectpath,commandfile,objectfile):
+    def verifycommands(self,objectpath,commandfile,objectfile,outputfile):
         resultfile=objectpath+objectfile;
-        with open(commanfile,'r') as file1:
+        with open(commandfile,'r') as file1:
             firstline=file1.readline()
+            count=0
+            for line in file1:
+                if 'DUT' in line and 'common' not in line:
+                    count+=1
+            self.logger.info("overall number of command to execute it {}".format(count))
             result=[]
-            if firstline!="TestCase Start":
+            self.logger.info("start checking result file")
+            if "TestCase Start" not in firstline:
+                self.logger.info("executing is in single command mode")
                 while True:
                     try:
                         outputline=subprocess.check_output(["adb","-s",device,"shell","cat",resultfile],shell=True)
@@ -396,22 +411,45 @@ class Androiddevicebt2(devicebt):
                             return False,result
                     except Exception as e:
                         return False
-                        self.logger.info("single command running failure "+e)
+                        self.logger.error("single command running failure "+e)
             else:
-                while True:
+                self.logger.info("executing is in without usb command mode")
+                self.removecommandfile(outputfile)
+                self.createcommandfile2(outputfile)
+                prev=0
+                while count!=0:
                     try:
-                        outputline=subprocess.check_output(["adb","-s",device,"shell","cat",resultfile],shell=True)
-                        outputline1=str(outputline.decode('utf-8'))
+                        outputline=subprocess.check_output(["adb","-s",self.deviceid,"shell","cat",resultfile],shell=True)                     
+                        outputline1=str(outputline)
+                        self.logger.info("checking the result")
+                        '''remove the notifybm3.txt log file'''
+                       
                         outputresult=outputline1.split('\\r\\r\\n')
-                        result=[]
-                        for line in outputresult:
-                            if 'PASS' in line or 'FAIL' in line:
-                                if 'common sleep' not in line:
-                                    result.append(line);
-                        return True,result
+                        if(len(outputresult)>0):
+                            for line in outputresult:
+                                if 'FAIL' in line:
+                                    self.logger.info("command execution of {} failed".format(line))
+                                    result.append(line)
+                                    break;
+                                # elif 'PASS' in line and outputresult.index(line)+1>len(result):
+                                elif 'PASS' in line:
+                                    if 'common' not in line:
+                                        count-=1
+                            self.logger.info("number of count is {}".format(count))
                     except Exception as e:
-                        return False
                         self.logger.error("without usb command result reading failure "+e)
+                        return False,result
+                    time.sleep(2)
+                s=subprocess.call(["adb","-s",self.deviceid,"shell","rm",resultfile],shell=True)
+                for line in outputresult:
+                    if ('PASS' in line or 'FAIL' in line) and 'common' not in line:
+                        result.append(line)
+                
+                with open(outputfile,'a') as outputfile1:
+                    for line in result:
+                        outputfile1.write(line+'\n')
+                    outputfile1.close()
+                return True,result
 
     def verifycommandpass(self,result,mode=1,command=None):
         countpass=0

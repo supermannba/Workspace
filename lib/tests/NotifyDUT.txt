@@ -19,6 +19,8 @@ DUT BLE peripheral buildadv 1
 DUT common sleep 1000
 DUT BLE peripheral startadv 1
 DUT common sleep 1000
+DUT 1 BT setname cstadv
+DUT common sleep 1000
 DUT BLE peripheral startbuildingnewadv 2
 DUT common sleep 1000
 DUT 1 ble peripheral addadvdata 2 includedevicename true
@@ -32,6 +34,8 @@ DUT common sleep 1000
 DUT BLE peripheral buildadv 2
 DUT common sleep 1000
 DUT BLE peripheral startadv 2
+DUT common sleep 1000
+DUT 1 BT setname cstadv
 DUT common sleep 1000
 DUT BLE peripheral startbuildingnewadv 3
 DUT common sleep 1000
@@ -47,6 +51,8 @@ DUT BLE peripheral buildadv 3
 DUT common sleep 1000
 DUT BLE peripheral startadv 3
 DUT common sleep 1000
+DUT 1 BT setname cstadv
+DUT common sleep 1000
 DUT BLE peripheral startbuildingnewadv 4
 DUT common sleep 1000
 DUT 1 ble peripheral addadvdata 4 includedevicename true
@@ -61,6 +67,8 @@ DUT BLE peripheral buildadv 4
 DUT common sleep 1000
 DUT BLE peripheral startadv 4
 DUT common sleep 1000
+DUT 1 BT setname cstadv
+DUT common sleep 1000
 DUT BLE peripheral startbuildingnewadv 5
 DUT common sleep 1000
 DUT 1 ble peripheral addadvdata 5 includedevicename true
@@ -74,6 +82,8 @@ DUT common sleep 1000
 DUT BLE peripheral buildadv 5
 DUT common sleep 1000
 DUT BLE peripheral startadv 5
+DUT common sleep 1000
+DUT 1 BT setname cstadv
 DUT common sleep 1000
 DUT BLE peripheral startbuildingnewadv 6
 DUT common sleep 1000
