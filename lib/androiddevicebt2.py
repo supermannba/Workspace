@@ -425,7 +425,7 @@ class Androiddevicebt2(devicebt):
                 self.removecommandfile(outputfile)
                 self.createcommandfile2(outputfile)
                 prev=0
-                while count!=0:
+                while count1<count:
                     try:
                         outputline=subprocess.check_output(["adb","-s",self.deviceid,"shell","cat",resultfile],shell=True)                     
                         outputline1=str(outputline)
@@ -434,6 +434,7 @@ class Androiddevicebt2(devicebt):
                        
                         outputresult=outputline1.split('\\r\\r\\n')
                         if(len(outputresult)>0):
+                            count1=0
                             for line in outputresult:
                                 if 'FAIL' in line:
                                     self.logger.info("command execution of {} failed".format(line))
@@ -442,7 +443,7 @@ class Androiddevicebt2(devicebt):
                                 # elif 'PASS' in line and outputresult.index(line)+1>len(result):
                                 elif 'PASS' in line:
                                     if 'common' not in line:
-                                        count-=1
+                                        count1+=1    
                             self.logger.info("number of count is {}".format(count))
                     except Exception as e:
                         self.logger.error("without usb command result reading failure "+e)
