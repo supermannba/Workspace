@@ -63,10 +63,6 @@ class Tcpwrapper:
 				break
 			try:
 				data=self.sock.recv(1024)
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 				if data:
 					totaldata.append(data.decode("utf-8"))
 					begin=time.time()
@@ -153,12 +149,10 @@ class Tcpwrapper:
 				self.logger.info("desired message not found")	
 				return False
 		except Exception as e:
-<<<<<<< HEAD
-			self.logger.error("cound not verify the info "+e)
-			return False
-=======
+
 			self.logger.error("cound not verify the info "+str(e))
->>>>>>> origin/master
+			return False
+
 
 	def sendverify(self,hostname,command,port):
 		try:
