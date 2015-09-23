@@ -38,7 +38,7 @@ class Tcpwrapper:
 
 	def senddata(self,data):
 		try:
-			self.sock.sendall(data)
+			self.sock.sendall(str.encode(data))
 			self.logger.info('sended the data from TCP port')
 		except socket.error as e:
 			self.logger.info("could not send data "+str(e))
@@ -124,7 +124,7 @@ class Tcpwrapper:
 			else:
 				self.logger.info("desired message not found")	
 		except Exception as e:
-			self.logger.error("cound not verify the info "+e)
+			self.logger.error("cound not verify the info "+str(e))
 
 	def sendverify(self,hostname,command,port):
 		try:
@@ -136,7 +136,7 @@ class Tcpwrapper:
 				if result=='received':
 					break
 		except socket.error as e:
-			self.logger.error("error in sending command "+e)
+			self.logger.error("error in sending command "+str(e))
 
 def main():
 	import socket

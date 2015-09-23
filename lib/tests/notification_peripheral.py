@@ -10,7 +10,7 @@ from utils.adbwrapper import adbwrapper
 from utils.tcpwrapper import Tcpwrapper
 from androiddevicebt2 import Androiddevicebt2
 import subprocess
-import enums
+import utils.enums
 import test,time,datetime
 import androiddevicebt2
 import loggingv1,sys
@@ -26,18 +26,24 @@ for device in devicelist:
 
 
 '''start initialization'''
-adbwrapper1.initialization()
-dut[0].initialize(androiddevicebt2.commandfile)
-numberlist=1
-for i in range(numberlist):
-	dut[0].advertising(serial=1,instance=i+1,advmode=enums.Advertisingmode.lowlatency.value,advpower=enums.Advertisingpower.highpower.value,connectable=enums.Connectable.connectable.value,timeout=0,datalength=251,name=androiddevicebt2.advname,remotehost='WCONNECT-BT-39')
-dut[0].startstop(androiddevicebt2.commandfile)
-adbwrapper1.adbpush(dut[0].deviceid,dut[0].commandfile,androiddevicebt2.objectpath)
-result=dut[0].verifycommands(androiddevicebt2.objectpath,androiddevicebt2.commandfile,androiddevicebt2.resultfile,androiddevicebt2.outputfile)
-if(dut[0].verifycommandpass(result[1])):
-	tcpwrapper1.senddata(utils.enums.noticeevent.advertising)
+# adbwrapper1.initialization()
+# dut[0].initialize(androiddevicebt2.commandfile)
+# numberlist=1
+# for i in range(numberlist):
+# 	dut[0].advertising(serial=1,instance=i+1,advmode=utils.enums.Advertisingmode.lowlatency.value,advpower=utils.enums.Advertisingpower.highpower.value,connectable=utils.enums.Connectable.connectable.value,timeout=0,datalength=251,name=androiddevicebt2.advname,remotehost='WCONNECT-BT-39')
+# dut[0].startstop(androiddevicebt2.commandfile)
+# adbwrapper1.adbpush(dut[0].deviceid,dut[0].commandfile,androiddevicebt2.objectpath)
+# result=dut[0].verifycommands(androiddevicebt2.objectpath,androiddevicebt2.commandfile,androiddevicebt2.resultfile,androiddevicebt2.outputfile)
+# if dut[0].verifycommandpass(result[1]):
+# 	tcpwrapper1.connect1(utils.enums.Hostname.WCONNECTBT39.value,utils.enums.Tcpport.port3.value)
+# 	tcpwrapper1.senddata(utils.enums.noticeevent.advertising.value)
 
-
+tcpwrapper1.connect1(utils.enums.Hostname.WCONNECTBT39.value,utils.enums.Tcpport.port3.value)
+tcpwrapper1.senddata(utils.enums.noticeevent.advertising.value)
+time.sleep(1)
+result=tcpwrapper1.serverreceive(1,utils.enums.noticeevent.notificaitoninterval.value,'',utils.enums.Tcpport.port4.value)
+if result:
+	print("going to execute the change inteval")
 
 
 
