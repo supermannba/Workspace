@@ -38,7 +38,7 @@ class Tcpwrapper:
 
 	def senddata(self,data):
 		try:
-			self.sock.sendall(data)
+			self.sock.sendall(str.encode(data))
 			self.logger.info('sended the data from TCP port')
 		except socket.error as e:
 			self.logger.info("could not send data "+str(e))
@@ -96,7 +96,27 @@ class Tcpwrapper:
 				break
 		conn.close()	
 	
-		
+	
+	def serverlisten2(self,host,port,command,time):
+		self.bind(host,port)
+		self.sock.listen(time)
+		while True:
+			conn,addr=self.sock.accept()
+			self.logger.info('conneted with '+addr[0]+':'+str(addr[1]))
+			if conn:
+				break;
+		while True:
+			data=conn.recv(1024)
+			if data:
+				result1=data.decode('utf-8')
+				if command in result1:
+					conn.send(b"advertising noticed")
+					print(result1)
+				elif "close" in result1:
+					break
+				# print(result1)
+				conn.send(b"received")
+		conn.close()
 		
 
 	def serverlisten1(self,time):
@@ -114,6 +134,9 @@ class Tcpwrapper:
 
 	def closesocket(self):
 		self.sock.close()
+
+	def reopensocket(self):
+		self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
 
 
 	def serverreceive(self,time,command,host,port):
@@ -142,13 +165,37 @@ class Tcpwrapper:
 		except socket.error as e:
 			self.logger.error("error in sending command "+e)
 
+	def tcpservercommand(self,port,command,host=''):
+		self.reopensocket()
+		self.serverlisten2(host,port,command,1)
+		self.closesocket()
+
+	def tcpclientcommand(self,port,command,command2,remotehost):
+		self.reopensocket()
+		self.connect1(remotehost,port)
+		while True:
+			tcpwrapper1.senddata(command)
+			data=tcpwrapper1.sock.recv(100)
+			if data:
+				result2=data.decode("utf-8")
+				if command2 in result2:
+					break;
+			sleep(1)
+		tcpwrapper1.senddata("close")
+
+
 def main():
 	import socket
 	tcpwrapper1=Tcpwrapper()
+	print(tcpwrapper1.sock)
 	host=''
-	port=50002
+	port=50001
 	command='advertising'
-	tcpwrapper1.serverreceive(1,command,host,port)
+	tcpwrapper1.serverlisten2(host,port,command,1)
+	tcpwrapper1.closesocket()
+	print(tcpwrapper1.sock)
+	tcpwrapper1.reopensocket()
+	tcpwrapper1.serverlisten2(host,port,command,1)
 
 if __name__=="__main__":main()
 
