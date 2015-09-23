@@ -8,7 +8,9 @@ from devicebt import devicebt
 
 import sendcommand
 import enums,os
-import adbmodule,time
+import utils.adbwrapper
+from utils.adbwrapper import adbwrapper
+import time
 import socket,sys,logging
 import subprocess
 
@@ -25,6 +27,7 @@ class Androiddevicebt2(devicebt):
     global peripheral
     global central
     global enable
+    global disable
     global serviceuuid
     global objectpath
     global commandfile
@@ -51,9 +54,12 @@ class Androiddevicebt2(devicebt):
     peripheral='peripheral'
     central='central'
     enable='true'
+    disable="false"
     serviceuuid='serviceuuid'
     advname="cstadv"
     datalength=251
+
+    
 
     def __init__(self,deviceid,bt,btle,sequence,commandfile,objectpath):
         devicebt.__init__(self,os='Android',bt=True,btle=True)
@@ -143,17 +149,18 @@ class Androiddevicebt2(devicebt):
             print(e)
 
     def executing1(self,command,addrflag=0):
+        adbwrapper1=adbwrapper()
         self.removecommandfile(self.commandfile)
         self.createcommandfile2(self.commandfile)
         self.onecommmand(command,self.commandfile)
-        adbwrapper.adbpush(self.deviceid,self.commandfile,self.objectpath)
-        result=self.verifycommands(self.objectpath,self.commandfile,objectfile)
-        if result:
+        adbwrapper1.adbpush(self.deviceid,self.commandfile,self.objectpath)
+        result=self.verifycommands(self.objectpath,self.commandfile,resultfile,outputfile)
+        if result[0]:
             self.logger.info("Command executing pass")
         else:
             self.logger.info("Command executing fail")
-        if addrlfag==1:
-            addr=self.getadvtiseraddres()
+        if addrflag==1:
+            addr=self.getadvtiseraddress(result[1])
             if addr!=-1:
                 self.remoteaddr=addr
                 return True;
@@ -240,14 +247,14 @@ class Androiddevicebt2(devicebt):
         command=' '.join([dut,str(serial),ble,client,command1,name])
         self.executing(command,self.commandfile) 
 
-    def scanforname1(self,serial,name):
+    def scanforname1(self,serial,name,addrflag=0):
         command1='scanfordevicename'
         command=' '.join([dut,str(serial),ble,client,command1,name])
-        if self.executing1(command):
+        result=self.executing1(command,addrflag)
+        if result:
             return True
         else:
             return False 
-
 
 
     def lescan(self,serial,deviceaddr):
@@ -353,11 +360,13 @@ class Androiddevicebt2(devicebt):
         
     '''wrapper class for complicated operation'''
 
-    def initialize(self,commanfile):
+    def initialize(self,commanfile,autobonding=True):
         self.removecommandfile(commandfile)
         self.createcommandfile2(commandfile)
         self.turnonBT()
         self.turnonLE()
+        if autobonding==True:
+            self.autoacceptpairingrequest(disable)
 
  
 
@@ -366,27 +375,32 @@ class Androiddevicebt2(devicebt):
         self.turnonLE()
 
     def advertising(self,serial,instance,advmode,advpower,connectable,timeout,name,remotehost,datalength=251,UUID=enums.UUID.UUID0.value):
-
-        self.setname(serial,name)
-        self.startbuildadvertiser(instance)
-        self.advertisingwithname(serial,instance,enable)
-        self.addadvdataUUID(UUID,instance)
-        self.configurenewservicewithdatalength(serial,datalength)
-        self.setadvsetting(instance,advmode,advpower,connectable,timeout)
-        self.buildadvertiser(instance)
-        self.startadvertising(instance)
-        self.logger.info("advertising start")
-        command="advertising instance {} is started".format(instance)
-        return command 
+        try:
+            self.setname(serial,name)
+            self.startbuildadvertiser(instance)
+            self.advertisingwithname(serial,instance,enable)
+            self.addadvdataUUID(UUID,instance)
+            self.configurenewservicewithdatalength(serial,datalength)
+            self.setadvsetting(instance,advmode,advpower,connectable,timeout)
+            self.buildadvertiser(instance)
+            self.startadvertising(instance)
+            self.logger.info("advertising start")
+            command="advertising instance {} is started".format(instance)
+            return command 
+        except Exception as e:
+            self.logger.error("advertising command failure "+e)
 
     def scanandconnect(self,serial,deviceaddr,datalength):
-        self.lescan(serial,deviceaddr)
-        self.connect(serial,deviceaddr)
-        self.configuremtu(serial,deviceaddr,datalength)
-        self.discoverservices(self,deviceaddr)
-        self.logger.info("connection to remote device")
-        command="client connection is finished"
-        return command
+        try:
+            self.lescan(serial,deviceaddr)
+            self.connect(serial,deviceaddr)
+            self.configuremtu(serial,deviceaddr,datalength)
+            self.discoverservices(serial,deviceaddr)
+            self.logger.info("connected to remote device")
+            command="client connection is finished"
+            return command
+        except Exception as e:
+            self.logger.error("scan and connect error "+e)
 
     def writedescriptor(self,serial,UUID16bit,Characteristic,Descriptor,operation1,writedata):
         self.discoverservices(serial,deviceaddr)
@@ -409,22 +423,26 @@ class Androiddevicebt2(devicebt):
                 self.logger.info("executing is in single command mode")
                 while True:
                     try:
-                        outputline=subprocess.check_output(["adb","-s",device,"shell","cat",resultfile],shell=True)
+                        self.logger.info("start checking command output")
+                        outputline=subprocess.check_output(["adb","-s",self.deviceid,"shell","cat",resultfile],shell=True)
                         outputline1=str(outputline.decode('utf-8'))
+                        self.logger.info("found the command output is {}".format(outputline1))
                         if 'PASS' in outputline1 or 'FAIL' in outputline1:
-                            s=subprocess.call(["adb","-s",device,"shell","rm",resultfile],shell=True)
+                            s=subprocess.call(["adb","-s",self.deviceid,"shell","rm",resultfile],shell=True)
                             result.append(outputline1)
                             return True,result
                         else:
                             return False,result
                     except Exception as e:
-                        return False
                         self.logger.error("single command running failure "+e)
+                        return False,result
+                    time.sleep(1)
             else:
                 self.logger.info("executing is in without usb command mode")
                 self.removecommandfile(outputfile)
                 self.createcommandfile2(outputfile)
                 prev=0
+                count1=0
                 while count1<count:
                     try:
                         outputline=subprocess.check_output(["adb","-s",self.deviceid,"shell","cat",resultfile],shell=True)                     
@@ -439,14 +457,14 @@ class Androiddevicebt2(devicebt):
                                 if 'FAIL' in line:
                                     self.logger.info("command execution of {} failed".format(line))
                                     result.append(line)
-                                    break;
+                                    return False,result
                                 # elif 'PASS' in line and outputresult.index(line)+1>len(result):
                                 elif 'PASS' in line:
                                     if 'common' not in line:
                                         count1+=1    
                             self.logger.info("number of count is {}".format(count))
                     except Exception as e:
-                        self.logger.error("without usb command result reading failure "+e)
+                        self.logger.error("without usb command result reading failure "+str(e))
                         return False,result
                     time.sleep(2)
                 s=subprocess.call(["adb","-s",self.deviceid,"shell","rm",resultfile],shell=True)
@@ -490,7 +508,7 @@ class Androiddevicebt2(devicebt):
 
     def getadvtiseraddress(self,result):
         for line in result:
-            if utils.enums.stringpattern.string14 in line:
+            if utils.enums.stringpattern.string14.value in line:
                 index1=line.index(enums.stringpattern.string14.value)
                 index2=index1+len(enums.stringpattern.string14.value)
                 return line[index2:index2+17]

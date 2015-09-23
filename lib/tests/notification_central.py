@@ -23,12 +23,26 @@ for device in devicelist:
 
 '''start test'''
 '''start initialization'''
-adbwrapper1.initialization()
-dut[0].initialize(androiddevicebt2.commandfile)
-tcpwrapper1.serverreceive(1,enums.noticeevent.advertising.value,'',enums.Tcpport.port3.value)
-if(dut[0].scanforname1(1,androiddevicebt2.advname)):
-	dut[0].createcommandfile2(dut[0].commandfile)
-	command1=dut[0].scanandconnect(1,dut[0].remoteaddr,androiddevicebt2.datalength)
-tcpwrapper1.sendverify(utils.enums.BTTESTWS2.value,enums.noticeevent.notificaitoninterval.value,enums.Tcpport.port4.value)
-dut[0].writedescriptor(1,enums.UUID16bit.UUID0.value,enums.Characteristic.CID0.value,enums.Descriptor.DES0.value,enums.readwriteoperation.operationwrite.value,writedata=enums.writedata.notification.value)
+# adbwrapper1.initialization()
+# dut[0].initialize(androiddevicebt2.commandfile)
+# dut[0].startstop(androiddevicebt2.commandfile)
+# adbwrapper1.adbpush(dut[0].deviceid,dut[0].commandfile,androiddevicebt2.objectpath)
+result=tcpwrapper1.serverreceive(1,utils.enums.noticeevent.advertising.value,'',utils.enums.Tcpport.port3.value)
+if result:
+	dut[0].scanforname1(1,androiddevicebt2.advname,addrflag=1)
+	time.sleep(5)
+	if dut[0].remoteaddr:
+		print(len(dut[0].remoteaddr))
+		dut[0].removecommandfile(dut[0].commandfile)
+		dut[0].createcommandfile2(dut[0].commandfile)
+		dut[0].turnonLE()
+		command1=dut[0].scanandconnect(1,dut[0].remoteaddr,androiddevicebt2.datalength)
+		dut[0].startstop(androiddevicebt2.commandfile)
+		adbwrapper1.adbpush(dut[0].deviceid,dut[0].commandfile,androiddevicebt2.objectpath)
+result1=dut[0].verifycommands(androiddevicebt2.objectpath,androiddevicebt2.commandfile,androiddevicebt2.resultfile,androiddevicebt2.outputfile)
+if result1[0]:
+	tcpwrapper1.sendverify(utils.enums.BTTESTWS2.value,utils.enums.noticeevent.notificaitoninterval.value,utils.enums.Tcpport.port4.value)
+
+# tcpwrapper1.sendverify(utils.enums.BTTESTWS2.value,utils.enums.noticeevent.notificaitoninterval.value,utils.enums.Tcpport.port4.value)
+# dut[0].writedescriptor(1,utils.enums.UUID16bit.UUID0.value,utils.enums.Characteristic.CID0.value,utils.enums.Descriptor.DES0.value,utils.enums.readwriteoperation.operationwrite.value,writedata=utils.enums.writedata.notification.value)
 
