@@ -183,6 +183,7 @@ class Tcpwrapper:
 					break;
 			sleep(1)
 		tcpwrapper1.senddata("close")
+		self.closesocket()
 
 
 def main():

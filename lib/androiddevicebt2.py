@@ -7,7 +7,7 @@ Created on Sep 4, 2015
 from devicebt import devicebt
 
 import sendcommand
-import enums,os
+import utils.enums,os
 import utils.adbwrapper
 from utils.adbwrapper import adbwrapper
 import time
@@ -256,10 +256,47 @@ class Androiddevicebt2(devicebt):
         else:
             return False 
 
+    def startbuildingscanfilter(self,instance,filterid):
+        command1='startbuildingscanfilter'
+        command=' '.join([dut,BLE,central,command1,str(instance),str(filterid)])
+        self.executing(command,self.commandfile)
 
-    def lescan(self,serial,deviceaddr):
+    def setfilter(self,instance,filterid,filtertype,filtervalue):
+        command1="setfilter"
+        command=' '.join([dut,BLE,central,command1,str(instance),str(filterid),filtertype,filtervalue])
+        self.executing(command,self.commandfile)
+
+    def resetscanfilters(self,instance):
+        command1="resetscanfilters"
+        command=' '.join([dut,BLE,central,command1,str(instance)])
+        self.executing(command,self.commandfile)
+
+    def setscansettings(self,instance,filterid,scanmode,callbacktype,scanresulttype,reportdelay):
+        command1="setscansettings"
+        command=' '.join([dut,BLE,central,command1,str(instance),str(filterid),str(scanmode),str(callbacktype),str(scanresulttype),str(reportdelay)])
+        self.executing(command,self.commandfile)
+
+    def buildscanfilter(self,instance,filterid):
+        command1="buildscanfilter"
+        command=' '.join([dut,BLE,central,command1,str(instance),str(filterid)])
+        self.executing(command,self.commandfile)
+
+
+    def commandcomposer(self,command,role,instance):
+        command1=' '.join([dut,BLE,role,command,str(instance)])
+        self.executing(command1,self.commandfile)
+
+    def scanwithfilter(self,instance):
+        command="scanwithfilter"
+        self.commandcomposer(command,central,instance)
+
+    def stopfilterscan(self,instance):
+        command="stopfilteredscan"
+        self.commandcomposer(command,central,instance)
+
+    def lescan(self,serial,deviceaddr,blocking):
         command1='startscan'
-        command=' '.join([dut,str(serial),ble,client,command1,deviceaddr])
+        command=' '.join([dut,str(serial),ble,client,command1,deviceaddr,blocking])
         self.executing(command,self.commandfile)
 
 
@@ -348,7 +385,7 @@ class Androiddevicebt2(devicebt):
 
     def stopadvertising(self,instance):
         command1='stopadv'
-        command=' '.join([dut,BLE,peripheral,command1,instance])
+        command=' '.join([dut,BLE,peripheral,command1,str(instance)])
         self.executing(command,self.commandfile)
 
     def advertisingwithname(self,serial,instance,enable):
@@ -360,7 +397,7 @@ class Androiddevicebt2(devicebt):
         
     '''wrapper class for complicated operation'''
 
-    def initialize(self,commanfile,autobonding=True):
+    def initialize(self,commandfile,autobonding=True):
         self.removecommandfile(commandfile)
         self.createcommandfile2(commandfile)
         self.turnonBT()
@@ -368,15 +405,17 @@ class Androiddevicebt2(devicebt):
         if autobonding==True:
             self.autoacceptpairingrequest(disable)
 
- 
+    def setupcommandfile(self,commandfile):
+        self.removecommandfile(commandfile)
+        self.createcommandfile2(commandfile)
+
 
     def turnonBTLE(self):
         self.turnonBT()
         self.turnonLE()
 
-    def advertising(self,serial,instance,advmode,advpower,connectable,timeout,name,remotehost,datalength=251,UUID=enums.UUID.UUID0.value):
+    def advertising(self,serial,instance,advmode,advpower,connectable,timeout,datalength=251,UUID=utils.enums.UUID.UUID0.value):
         try:
-            self.setname(serial,name)
             self.startbuildadvertiser(instance)
             self.advertisingwithname(serial,instance,enable)
             self.addadvdataUUID(UUID,instance)
@@ -388,11 +427,23 @@ class Androiddevicebt2(devicebt):
             command="advertising instance {} is started".format(instance)
             return command 
         except Exception as e:
-            self.logger.error("advertising command failure "+e)
+            self.logger.error("advertising command failure "+str(e))
+
+
+    def startlescan(self,instance,filterid,filtertype,filtervalue,scanmode,callbacktype,scanresulttype,reportdelay):
+        try:
+            self.startbuildingscanfilter(instance,filterid)
+            self.setfilter(instance,filterid,filtertype,filtervalue)
+            self.buildscanfilter(instance,filterid)
+            self.setscansettings(instance,filterid,scanmode,callbacktype,scanresulttype,reportdelay)
+            self.scanwithfilter(filterid)
+        except Exception as e:
+            self.logger.error("start le scan error "+str(e))
+
 
     def scanandconnect(self,serial,deviceaddr,datalength):
         try:
-            self.lescan(serial,deviceaddr)
+            self.lescan(serial,deviceaddr,blocking="false")
             self.connect(serial,deviceaddr)
             self.configuremtu(serial,deviceaddr,datalength)
             self.discoverservices(serial,deviceaddr)
@@ -462,7 +513,7 @@ class Androiddevicebt2(devicebt):
                                 elif 'PASS' in line:
                                     if 'common' not in line:
                                         count1+=1    
-                            self.logger.info("number of count is {}".format(count))
+                            # self.logger.info("number of count is {}".format(count))
                     except Exception as e:
                         self.logger.error("without usb command result reading failure "+str(e))
                         return False,result
@@ -509,13 +560,17 @@ class Androiddevicebt2(devicebt):
     def getadvtiseraddress(self,result):
         for line in result:
             if utils.enums.stringpattern.string14.value in line:
-                index1=line.index(enums.stringpattern.string14.value)
-                index2=index1+len(enums.stringpattern.string14.value)
+                index1=line.index(utils.enums.stringpattern.string14.value)
+                index2=index1+len(utils.enums.stringpattern.string14.value)
                 return line[index2:index2+17]
         return -1
 
 
-    
+    def masetadvertising(self,instances):
+        self.setname(1,advname)
+        for i in range(instances):
+            self.dut[0].advertising(serial=1,instance=i+1,advmode=utils.enums.Advertisingmode.lowlatency.value,advpower=utils.enums.Advertisingpower.highpower.value,connectable=utils.enums.Connectable.connectable.value,timeout=0,datalength=251)
+          
 
 def main():
     # devicelist=adbmodule.adbdevice()s

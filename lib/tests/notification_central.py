@@ -41,7 +41,7 @@ if result:
 		adbwrapper1.adbpush(dut[0].deviceid,dut[0].commandfile,androiddevicebt2.objectpath)
 result1=dut[0].verifycommands(androiddevicebt2.objectpath,androiddevicebt2.commandfile,androiddevicebt2.resultfile,androiddevicebt2.outputfile)
 if result1[0]:
-	tcpwrapper1.sendverify(utils.enums.BTTESTWS2.value,utils.enums.noticeevent.notificaitoninterval.value,utils.enums.Tcpport.port4.value)
+	tcpwrapper1.sendverify(utils.enums.Hostname.BTTESTWS2.value,utils.enums.noticeevent.notificaitoninterval.value,utils.enums.Tcpport.port4.value)
 
 # tcpwrapper1.sendverify(utils.enums.BTTESTWS2.value,utils.enums.noticeevent.notificaitoninterval.value,utils.enums.Tcpport.port4.value)
 # dut[0].writedescriptor(1,utils.enums.UUID16bit.UUID0.value,utils.enums.Characteristic.CID0.value,utils.enums.Descriptor.DES0.value,utils.enums.readwriteoperation.operationwrite.value,writedata=utils.enums.writedata.notification.value)
