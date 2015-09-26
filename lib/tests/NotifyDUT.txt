@@ -1,0 +1,66 @@
+TestCase Start
+DUT enableBT
+DUT common sleep 1000
+DUT enableLE
+DUT common sleep 1000
+DUT BT autoacceptnextpairingrequest false
+DUT common sleep 1000
+DUT 1 BT setname cstadv
+DUT common sleep 1000
+DUT BLE peripheral startbuildingnewadv 1
+DUT common sleep 1000
+DUT 1 ble peripheral addadvdata 1 includedevicename true
+DUT common sleep 1000
+DUT BLE peripheral addadvdata 1 serviceuuid 0000110D-0000-1000-8000-00805F9B34FB
+DUT common sleep 1000
+DUT 1 ble leserver configurenewservicewithdatalength 251
+DUT common sleep 1000
+DUT BLE peripheral setadvsettings 1 2 3 0 true
+DUT common sleep 1000
+DUT BLE peripheral buildadv 1
+DUT common sleep 1000
+DUT BLE peripheral startadv 1
+DUT common sleep 1000
+DUT BLE peripheral startbuildingnewadv 2
+DUT common sleep 1000
+DUT 1 ble peripheral addadvdata 2 includedevicename true
+DUT common sleep 1000
+DUT BLE peripheral addadvdata 2 serviceuuid 0000110D-0000-1000-8000-00805F9B34FB
+DUT common sleep 1000
+DUT 1 ble leserver configurenewservicewithdatalength 251
+DUT common sleep 1000
+DUT BLE peripheral setadvsettings 2 2 3 0 true
+DUT common sleep 1000
+DUT BLE peripheral buildadv 2
+DUT common sleep 1000
+DUT BLE peripheral startadv 2
+DUT common sleep 1000
+DUT BLE peripheral startbuildingnewadv 3
+DUT common sleep 1000
+DUT 1 ble peripheral addadvdata 3 includedevicename true
+DUT common sleep 1000
+DUT BLE peripheral addadvdata 3 serviceuuid 0000110D-0000-1000-8000-00805F9B34FB
+DUT common sleep 1000
+DUT 1 ble leserver configurenewservicewithdatalength 251
+DUT common sleep 1000
+DUT BLE peripheral setadvsettings 3 2 3 0 true
+DUT common sleep 1000
+DUT BLE peripheral buildadv 3
+DUT common sleep 1000
+DUT BLE peripheral startadv 3
+DUT common sleep 1000
+DUT BLE peripheral startbuildingnewadv 4
+DUT common sleep 1000
+DUT 1 ble peripheral addadvdata 4 includedevicename true
+DUT common sleep 1000
+DUT BLE peripheral addadvdata 4 serviceuuid 0000110D-0000-1000-8000-00805F9B34FB
+DUT common sleep 1000
+DUT 1 ble leserver configurenewservicewithdatalength 251
+DUT common sleep 1000
+DUT BLE peripheral setadvsettings 4 2 3 0 true
+DUT common sleep 1000
+DUT BLE peripheral buildadv 4
+DUT common sleep 1000
+DUT BLE peripheral startadv 4
+DUT common sleep 1000
+TestCase End
